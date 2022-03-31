@@ -1,0 +1,67 @@
+---
+title: "Introduction to WebMaps"
+subtitle: "Lesson 1: Theory, practices and required skills"
+author: "Dr. **Cyrille Médard de Chardon**"
+institute: "<br>University of Luxembourg &<br>Luxembourg Institute of Socio-Economic Research (LISER)"
+date: "<br>April 1, 2022"
+output:
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts, custom/custom.css] #xaringan-themer.css
+    #css: [default, xaringen-themer.css, custom.css]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: false
+      beforeInit: "custom/macros.js"
+      
+# Resources used to generate this presentation
+#remotes::install_github("yihui/xaringan")
+#https://slides.yihui.org/xaringan/
+
+#devtools::install_github("gadenbuie/xaringanExtra")
+#https://github.com/gadenbuie/xaringanExtra
+
+#install.packages("xaringanthemer")
+#https://github.com/gadenbuie/xaringanthemer
+
+# formatting information
+# https://bookdown.org/yihui/rmarkdown/xaringan-format.html#content-classes
+
+---
+class: 
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(xaringanthemer)
+```
+
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css"))
+```
+
+# WebGIS subsection outline
+
+.pull-left[.tl[
+Left column
+
+]]
+
+.pull-right[.tl[
+Right column
+
+.source[the source]
+]]
+
+---
+
+class: inverse, center, middle, activity
+# Section/activity divider
+
+.tl[
+larger text
+
+]
+
+---
+

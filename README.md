@@ -4,7 +4,7 @@ This course provides a theoretical and practical introduction to webmaps broken 
 
 ## Lessons
 
-1. Theory
+1. Theory, practices and required skills
   - What are WebGIS and WebMaps?
   - The evolution of WebMaps from static images to dynamic
   - Types of map services
@@ -22,8 +22,8 @@ This course provides a theoretical and practical introduction to webmaps broken 
     - Browser
     - Coding 
   
-2. Hello world! - Getting a first WebMap running on a server.
-3. Legendary - Adding further information to a WebMap.
-4. 
+2. Hello world! - Building simple WebMaps and uploading them to a server.
+3. Legendary - Adding feature types and components to our WebMaps.
+4. Feedback - Making WebMaps more informative.
 
 An introductory course to WebMaps.
