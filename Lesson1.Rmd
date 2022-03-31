@@ -900,4 +900,4 @@ Feel free to use either or both as you wish, however I believe only **Notepad++*
 
 # Questions?
 
-[Contact me](mailto:cyrille.mdc@liser.lu) if you have any questions.
+## [Contact me](mailto:cyrille.mdc@liser.lu) if you have any questions.
