@@ -473,7 +473,7 @@ This issue has likely been problematic for you when using a GIS at some point.
 ---
 # File paths examples
 
-.pl[
+.pull-left[
 .pr[![File tree](imgs/l1/filetree.png)]
 ## Relative Paths
 - index.html
@@ -500,11 +500,349 @@ class: inverse, center, middle, activity
 
 # Activity
 
+Working with a partner:
+
+[Download](https://github.com/serialc/webmaps_introduction/blob/main/rsrcs/l1/filepaths/ex1.zip?raw=true) this file.
+
+**Extract/unzip it!**
+
+Repair the paths/folders so the Leaflet example from before functions.
+
+*Follow the bread crumbs starting from the index.html file*
 
 ---
+# Introduction to HTML
+
+.pull-left[
+These are tags and they usually come in pairs:
+
+```html
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My website&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div&gt;Content&lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+```
+&lt;hr&gt;
+
+Different tags provide certain functionalities by default.
+- `p` - Creates margins above/below the contained text.
+- `div` - Contains content in a box that fills the width.
+- `script` - Expects JavaScript within.
+- `style` - Expect CSS within.
+
+]
+
+.pull-right[
+Tags can contains attributes. In this case the attributes are named **class**, **id** with values **pop**, **map**:
+
+```html
+&lt;p class='pop'&gt;Hi&lt;/p&gt;
+&lt;div id='map'&gt;&lt;/div&gt;
+```
+&lt;hr&gt;
+
+In the above case we would say the paragraph **has** the class 'pop' rather than speak of attributes and values.
+
+Similarly, the div tag **has** the id 'map'.
+
+**Note that classes are meant to be applied to MANY elements, but id names should be UNIQUE.**
+]
+
+???
+
+HTML links to CSS, JavaScript, images, libraries, and other items. Typically it contains the textual data/content. HTML links to other resources, which may link to further resources downloaded when the page is loaded. Additional data can be asynchronously loaded - such as the WebMap tiles as you pan around.
+
+**If you want to make a WebMap that means you want to put content on-line on a website.**
+
 ---
+# HTML Example
+
+.pl[
+Let's look at a larger HTML example:
+]
+
+.pull-right[.ts[
+
+```html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;!-- I am a comment. Browsers ignore me --&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;WebGIS maps&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;!-- Start of the body, where the content should be placed --&gt;
+  &lt;body&gt;
+    &lt;h1&gt;My WebMaps&lt;/h1&gt;
+  
+    &lt;h2&gt;Me&lt;/h2&gt;
+    &lt;img src="images/me.jpg"&gt;
+  
+    &lt;h2&gt;Maps&lt;/h2&gt;
+    &lt;p&gt;Here are some WebMaps I made:&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;!-- This is a link, using the 'a' tag --&gt;
+        &lt;a href="pages/first.html"&gt;Map of water sampling&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;!-- Add other links and descriptions here using the above as an example --&gt;
+    &lt;/ul&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+```
+
+]]
+
+???
+
+In some cases you can’t share a WebMap as easily as you can an image map that you could post on Twitter, Facebook, etc… You will need to have a basic understanding of HTML, and other aspects, in order to do so.
+
 ---
+# Introduction to CSS (Cascading Style Sheets)
+
+.pl[
+CSS contains styling and layout information for HTML.
+
+Before CSS, existing styling would be embedded/mixed in HTML, this would make changing design or content a lot more work.
+
+The benefits of CSS are clear. See the [CSS Zen Garden](http://www.csszengarden.com/), **one HTML content file** with different CSS files.
+]
+
+.pr[
+.w90[![Zen Garden](imgs/l1/zengarden.png)]
+]
+
 ---
+# CSS
+ 
+.pull-left[
+CSS can either be placed in an independent file or within the HTML file.
+- Link to the CSS file within the existing `&lt;head&gt;&lt;/head&gt;` section:
+
+```html
+&lt;link href="css/webmap.css" rel="stylesheet" type="text/css"/&gt;
+```
+]
+
+.pull-right[
+- Add it in the HTML within a set of `&lt;script&gt;&lt;/script&gt;` tags:
+
+```css
+/* CSS comments are different than HTML */
+/* The 'a' points/links to an HTML elements of type 'a' */
+a {
+  text-decoration: none;
+}
+/* The '#' points/links to an HTML element with a an id of 'map' */
+#map { 
+  position:absolute;
+  top:0; 
+  width:100%
+}
+/* The '.' points/links to all HTML elements with a class of 'pop' */
+.pop {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+```
+]
+
+???
+
+A reminder that HTML contains content, CSS should make the layout and styling.
+
+While it's possible to embed the CSS in the HTML, I recommend keeping it in a separate file.
+
+Note that the order in which CSS rules are read impacts them.
+So if the class 'pop' defines twice what colour it should be, only the second rule will be followed.
+
+---
+# Introduction to JavaScript
+
+.pl[
+JavaScript is a scripting programming language (doesn't need further processing to be used). 
+
+It’s powerful but very easy to create confounding errors/unexpected results.
+
+JavaScript is used in this course to to 'create' maps, load content and handle interaction/requests.
+Most of the complexity is hidden using libraries and we will  mainly be doing configuration.
+]
+
+.pull-right[
+Create a variable/container and label it with:
+- `let` or `var`
+
+
+```js
+let map = L.map('map').setView([51.505, -0.09], 13);
+
+let options = {
+	maxZoom: 18,
+	attribution: 'Map data &amp;copy; &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors, ' +
+		'Imagery © &lt;a href="https://www.mapbox.com/"&gt;Mapbox&lt;/a&gt;',
+	id: 'mapbox/streets-v11',
+	tileSize: 512,
+	zoomOffset: -1
+};
+
+let tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
+  options).addTo(map);
+```
+
+
+&lt;script type="text/javascript"&gt;
+let map = L.map('map').setView([51.505, -0.09], 13);
+
+let options = {
+	maxZoom: 18,
+	attribution: 'Map data &amp;copy; &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors, ' +
+		'Imagery © &lt;a href="https://www.mapbox.com/"&gt;Mapbox&lt;/a&gt;',
+	id: 'mapbox/streets-v11',
+	tileSize: 512,
+	zoomOffset: -1
+};
+
+let tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
+  options).addTo(map);
+&lt;/script&gt;
+
+]
+
+???
+
+JavaScript is quite readable, try and figure out what people are doing, copy and change as needed. JavaScript does have it’s problems though - there are good and bad parts. 
+
+---
+# Data formats
+
+.pl[
+While some web applications allow uploading of esri shapefiles and tables, most WebMaps require data in JSON/GeoJSON format or structured/table text format (e.g., CSV, TSV, etc.).
+
+We'll only work with JSON, GeoJSON, and structure data files (e.g., CSV) of these.
+]
+
+.pull-right[
+## JSON
+
+JSON is a very human and machine readable way of storing many data types that can used directly from JavaScript code.
+
+
+```js
+{
+  "squadName": "Super hero squad",
+  "homeTown": "Metro City",
+  "formed": 2016,
+  "secretBase": "Super tower",
+  "active": true,
+  "members": ["Molecule Man",
+              "Madame Uppercut",
+              "Eternal Flame" ]
+}
+
+```
+
+
+&lt;script type="text/javascript"&gt;
+{
+  "squadName": "Super hero squad",
+  "homeTown": "Metro City",
+  "formed": 2016,
+  "secretBase": "Super tower",
+  "active": true,
+  "members": ["Molecule Man",
+              "Madame Uppercut",
+              "Eternal Flame" ]
+}
+
+&lt;/script&gt;
+
+.source[[Mozilla](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON)]
+]
+
+---
+# A deeper understanding
+.pull-left[
+Don’t be too worried about memorizing all this now. Focus on being able to understand it. You can always replicate by copying and modifying.
+
+**The biggest greatest importance is understanding the linkage between folder/files and how they relate to html, css, js, and other data files.**
+
+While IDEs can be helpful, there are tools built into web browsers to better **understand** how things function and what may be going wrong.
+
+You will encounter problems. Without these (debugging) tools it is difficult to understand where the problem lies.
+]
+
+.pr[
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/F7IZZXQ89Oc?rel=0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+.source[Spinal Tap]
+]
+
+---
+# Developer Tools
+
+.pull-left[
+Most browsers have developer tools. These can be enabled in a variety of ways depending on your computer and browser. Try the following:
+
+- PC/Linux - `Ctrl+Shift+I`
+- Mac - `Alt+Command+I`
+- F12
+- Tools -&gt; Web Developer Tools* 
+
+![Developer tools](imgs/l1/devtools.png)
+Firefox developer tools.
+]
+
+.pull-right[
+The are four tabs that are of importance for us:
+
+- The **Pick** tab/button allows you to focus in individual elements.
+- The **Inspector/Elements** tab allow you to browse the HTML source code and understand how elements are constructed.
+- The **Console** tab is where JavaScript information is provided, such as errors, warnings, or just text to help the developer debug/check their code.
+- The **Network** tab shows us what/who the browser is communicating with and what it is sending and receiving (or failed receiving).
+
+![Developer tools](imgs/l1/devtoolschrome.png)
+Chrome developer tools.
+]
+
+???
+
+* Or some similar combination of menus.
+
+---
+# Revisited
+
+.pull-left[
+## Leaflet Example
+Let’s reconstruct the how the [Leaflet example site](https://leafletjs.com/SlavaUkraini/examples/quick-start/example.html) generates a WebMap by using the Developer tools.
+
+- Open the Developer tools
+- Look at the Network tab, you will need to refresh the page to see what/how the page loads.
+
+&lt;hr&gt;
+
+## Airports and flight Paths
+Let’s revisit the [airports and flight paths map](https://www.arcgis.com/apps/View/index.html?appid=6f53ca5e2b8c480888e96e5f71929c08) again but using Firefox/Chrome's developer tools:
+]
+
+.pull-right[
+
+- Look at the downloaded tiles in the network tab. Specifically note their sources.
+    - Click the item to gain more information in a side panel.
+    - Note that tile  URL paths vary. These are the X, Y tile coordinates and Z is the zoom level.
+    - Tip: Use the Clear tool (garbage can/bin) on the network tab to clear past network requests.
+- By hovering over the file name in the main network tab you can preview the file. Go through a few/many, you should see there are multiple types. How many types of tiles do you see? What strategy is the map using to display content?
+- Using the element selector/pointer, the left-most tab, try to select some of the map features. What can you deduce from this? How are the circle/paths features different?
+]
+
+---
+class: inverse, center, middle, activity
+
+# A few points before we close for today
+
 ---
 
 # WebMaps usually exist in context
@@ -578,8 +916,21 @@ Feel free to use either or both as you wish, however I believe only **Notepad++*
 
 .tl[
 1. [Computer Science Basics with Minecraft](https://studio.code.org/s/mc/lessons/1/levels/1) - Provide a screenshot of your code for the last level.
+
+2. [JavaScript basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics) - Follow the instructions.
+
+3. Browse the other sections of the [MDN site](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web), perhaps related to HTML and CSS.
+
+4. Using what you've learned and the code examples given, create a very simple website, it doesn't need to be pretty, introducing yourself and including a small picture of yourself. Zip up your site.
+
+5. Email the results of step 1 &amp; 4 to me **before** next week's lesson.
 ]
 
+---
+
+# Questions?
+
+[Contact me](mailto:cyrille.mdc@liser.lu) if you have any questions.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

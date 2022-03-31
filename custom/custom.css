@@ -5,6 +5,9 @@ h1 {
 .pl, .pr, .tl {
   font-size: 1.2em;
 }
+.ts{
+  font-size: 0.8em;
+}
 
 .ms {
   margin-left: 1em;
