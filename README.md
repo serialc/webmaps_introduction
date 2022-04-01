@@ -25,5 +25,3 @@ This course provides a theoretical and practical introduction to webmaps broken 
 2. Hello world! - Building simple WebMaps and uploading them to a server.
 3. Legendary - Adding feature types and components to our WebMaps.
 4. Feedback - Making WebMaps more informative.
-
-An introductory course to WebMaps.
