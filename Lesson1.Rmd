@@ -885,15 +885,15 @@ Feel free to use either or both as you wish, however I believe only **Notepad++*
 # Homework for next week
 
 .tl[
-1. [Computer Science Basics with Minecraft](https://studio.code.org/s/mc/lessons/1/levels/1) - Provide a screenshot of your code for the last level.
+1. [Computer Science Basics with Minecraft](https://studio.code.org/s/mc/lessons/1/levels/1) - Provide a screenshot showing you have completed levels 1-13 (green dots at the top of the screen).
 
 2. [JavaScript basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics) - Follow the instructions.
 
 3. Browse the other sections of the [MDN site](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web), perhaps related to HTML and CSS.
 
-4. Using what you've learned and the code examples given, create a very simple website, it doesn't need to be pretty, introducing yourself and including a small picture of yourself. Zip up your site.
+4. Using what you've learned and the code examples given in [this presentation](#26) , create a very simple website, it doesn't need to be pretty, provind some superficial information about yourself and, if you wish, including a small picture of yourself, pet, or something else. Zip up your site. Don't share any personal information.
 
-5. Email the results of step 1 & 4 to me **before** next week's lesson.
+5. Email the results of steps 1 & 4 above to me **before** next week's lesson.
 ]
 
 ---
