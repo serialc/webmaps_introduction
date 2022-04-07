@@ -3,7 +3,7 @@ title: "Introduction to WebMaps"
 subtitle: "Lesson 2: Building simple WebMaps and uploading them to a server"
 author: "Dr. **Cyrille Médard de Chardon**"
 institute: "<br>University of Luxembourg &<br>Luxembourg Institute of Socio-Economic Research (LISER)"
-date: "<br>April 1, 2022"
+date: "<br>April 8, 2022"
 output:
   xaringan::moon_reader:
     css: [default, metropolis, metropolis-fonts, custom/custom.css] #xaringan-themer.css
@@ -43,7 +43,7 @@ xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css"))
 # Everything looks like a nail
 
 .pl[
-Before making a WebMap, questions to ask yourself:
+Before making a WebMap, ask yourself:
 
 - Is the concept/idea valid? Does it makes sense cartographically to compared to a static map? 
 - What is the best medium to communicate your data?
@@ -64,6 +64,12 @@ WebMaps are great for exploring or communicating data that necessitate changing 
 
 To take an example from last lesson, the airline flights example is quite a good example of this. You can focus on an individual airport, specific regions (e.g., Greenland vs Africa) or the world.
 If I wanted to improve that map I could make it that clicking on an airport highlights those flights in particular.
+]
+
+.pr[
+.w90[![Fligh path layers](imgs/l2/fligthspaths_layers.png)]
+
+.source[[esri](https://www.arcgis.com/apps/View/index.html?appid=6f53ca5e2b8c480888e96e5f71929c08)]
 ]
 
 ---
@@ -90,22 +96,346 @@ Last week had some technical background taking time last week, but it’s necess
 # Agenda for Lesson 2
 
 .tl[
-1. Uploading your web page from last week to the server
-2. Understanding our WebMap template for all WebMaps
-3. Creating our first WebMap of Luxembourg POI
-4. Creating a WebMap of flight paths from Luxembourg
-5. Uploading all our WebMaps to the serve
+1. Making and understanding the index file
+2. Uploading your web page from last week to the server
+3. Creating your first WebMap (Leaflet)
+4. Creating a WebMap of flight paths using QGIS
+5. Uploading more WebMaps to your server
 ]
 
 ---
-
 class: inverse, center, middle, activity
-# Section/activity divider
+# Activity 1
 
-.tl[
-larger text
-
+## Making your landing page
+.pl[
+Note the importance of the index.html file:
+- Browsers look for it
 ]
 
 ---
 
+# Creating an HTML start page
+
+.pl[
+Download the [zip file](rsrcs/l2/lesson2.zip) for this lesson.
+
+- **Unzip it** (Windows will happily let you look inside without unzipping - that's bad)
+- Personalize/edit your welcome/main page (index.html) in your HTML editor of choice.
+  - Right click on index.html and “open with…” or open/find index.html from your editor.
+  - Make some minor modifications. For example adding your name to the title or heading.
+  - Add a link to your 'about me' page from last week's homework.
+]
+
+.pr[
+- Test it in a browser (**double click** on index.html - it should open in your default browser).
+- The link to your 'about me' page should work.
+
+*Being organized and clean in terms of files and folders will be very important*
+
+**For the remainder of the course you will be contributing to building up your website (i.e., this folder's contents).**
+]
+
+---
+class: inverse, center, middle, activity
+# Uploading to a server
+
+.pl[
+
+**[Our server for this course: 167.99.221.7](http://167.99.221.7/)**
+
+I will individually give you your passwords now
+]
+
+???
+
+The purpose of WebMaps is to provide spatial data interaction/exploration **online**. Typically WebMaps are placed within a website providing the context - similar to what you have done in esri’s Story Maps. Hopefully at this stage you have a working mini-website working on your **local machine**.
+
+We need to learn how to put our content on-line.
+
+Placing content on-line requires having a computer permanently on and connected to the internet that is running software that can respond to requests for information, what we call a **server**.
+
+I have spun up a temporary server using **DigitalOcean**. It costs about 5 EUR per month. Cheaper options exist (e.g., 20 EUR/year).
+
+A note on your using this server.
+- **Always keep a good copy of your data on your local machine**.
+    1. Work on things on your local machine
+    2. Get it working
+    3. Upload to the server.
+- Don't upload very large files, such as videos to the server.
+- Don't use the server for any content not related to this course.
+
+This server will not be active beyond the final assignment submission deadline.
+
+---
+# How to upload - Secure FTP
+
+.pl[
+There are various methods and tools we can use to upload.
+
+A common introductory method to move files between your computer and the server is FTP (File transfer protocol). We don't use this any more as it's unsafe.
+
+**We now use SFTP** (Secure FTP).
+
+We will use SFTP software called [FileZilla](https://filezilla-project.org/download.php?type=client), a good, free, and cross-platform **(S)FTP client**.
+]
+
+.pr[
+![FileZilla application layout](imgs/l2/filezilla.png)
+
+]
+
+???
+
+We might talk about using FTP generally but we always mean SFTP.
+
+---
+# FileZilla
+
+.pull-left[
+The basics:
+- The toolbar allows you to connect/disconnect/configure.
+  - The left button allows you to save configurations and quick connect.
+- Note the two viewing options on the toolbar's right.
+  - Shows you differences.
+  - Allows you to explore both your local machine and the server simultaneously.
+
+1. The activity pane.
+2. **Your computer**'s directory tree.
+3. **Your computer**'s selected directory's contents.
+4. **The server**'s directory tree.
+5. **The server**'s selected directory's contents.
+]
+
+.pr[
+![FileZilla application layout](imgs/l2/filezilla2.png)
+]
+
+---
+
+# FileZilla configuration
+
+.pl[
+To connect to the server, configure FileZilla by opening the Site Manager:
+- Click the icon in the toolbar at the top left of FileZilla ![FileZilla site manager icon](imgs/l2/fz_site_manager_icon.png). It opens the Site Manager window (to the right).
+- On the bottom left click **New site** button and give it a name (e.g., WebMaps course)
+- On the right specify the:
+  - Protocol: SFTP
+  - Host: 167.99.221.7
+  - User: [your username]
+  - Password: [your password]
+- Click **Connect**
+]
+
+.pr[
+![ZileZilla site manager window](imgs/l2/fz_site_manager.png)
+]
+
+---
+class: inverse, center, middle, activity
+# Upload your website to FileZilla now
+
+.pl[
+It should have a main **index.html** page, and
+an **aboutme.html** page. 
+]
+
+---
+# Creating our first WebMap
+
+.pl[
+We will now create our first WebMap using the [Leaflet library](https://leafletjs.com/) ([alt](https://leafletjs.com/SlavaUkraini/)).
+
+The [Quick Start Guide](https://leafletjs.com/SlavaUkraini/examples/quick-start/) assumes we have some knowledge of HTML.
+- Look in the [zip resources](rsrcs/l2/lesson2.zip) provided for today.
+- Duplicate the `resources_wk2/website/ pages/template.html` page and rename it `leaflet_example.html` (or something clear) in the same folder.
+- Open `leaflet_example.html` in your code editor of choice (e.g., notepad)
+]
+
+.pr[
+Follow the instructions on the Quick Start Guide and integrate the resources (CSS, JS, HTML) into your file.
+- You must link **two files** and add some HTML, JS, and CSS as well.
+- As we covered last week, I strongly recommend you keep the CSS and JS in separate files from the HTML for simplicity for now.
+]
+
+---
+# Linking your files (but doomed?)
+
+.pl[
+The `<head>`:
+- Webpage title
+- Link to Leaflet CSS
+- Link to Leaflet JS
+- Link to your CSS from directions
+- Link to your JS from directions
+
+The `<body>`:
+- a `<div id="something"></div>` that will contain your WebMap.
+]
+
+.pull-right[
+Follow the [directions](https://leafletjs.com/SlavaUkraini/examples/quick-start/) for the following sections:
+- [Preparing your page](https://leafletjs.com/SlavaUkraini/examples/quick-start/#preparing-your-page)
+- [Setting up the map](https://leafletjs.com/SlavaUkraini/examples/quick-start/#setting-up-the-map)
+- [Markers, circles, and polygons](https://leafletjs.com/SlavaUkraini/examples/quick-start/#markers-circles-and-polygons)
+- [Working with popups](https://leafletjs.com/SlavaUkraini/examples/quick-start/#working-with-popups)
+- Do not do the last section on Dealing with events
+
+### Result?
+
+.w50[![Grey WebMap](imgs/l2/grey_webmap.png)]
+
+]
+
+???
+
+I will do an overview of the activity steps first.
+
+Explain why this is doomed to failure.
+
+
+---
+# Mapbox
+
+.pl[
+As you've seen from the previous exercise, the tiles you are using belong to Mapbox, created from OSM data.
+
+As we will not be generating our own tiles in this course we need to use someone's. Mapbox's business is providing tools and resources, such as these tiles.
+
+There are many sources of map tiles, many of which you must register and retrieve a `key` to be able to use.
+
+If you exceed certain usage limits you will be cut-off and required to pay to continue.
+]
+
+.pull-right[
+Many alternative sources exist:
+
+.w75[[![WebMap containing various tile sources](imgs/l2/xyztiles.png)](http://openwhatevermap.xyz)]
+
+Try setting the `tileLayer` to an alternative source, for example:
+http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png
+]
+
+???
+
+You can now go back to do the activity, you must choose whether to use the Mapbox tiles or another resource.
+
+Feel free to ask each other for assistance, or myself.
+
+---
+class: inverse, center, middle, activity
+# Complete your WebMap
+
+---
+# An alternative method - QGIS
+
+.pl[
+We will dive straight into another activity. Making a WebMap of certain flight paths of your choice.
+
+The process is as follows:
+
+1. Import the data into QGIS
+2. Select desired features
+3. Change symbology of features
+4. Install plugins (qgis2web & QuickMapServices)
+5. Create/export WebMap
+]
+
+.pr[
+The data for this exercise is provided in the [zipped resources](rsrcs/l2/lesson2.zip) provided for today.
+- Again, assure you unzip the data
+
+Explore how to do the following activities in QGIS:
+- Add data (flight_paths_ALL_WGS84)
+- Open attribute table
+- Select feature/attributes using an expression
+- Export selection
+- Styling a layer's properties
+- Installing plugins
+- Adding a base map (QuickMapServices)
+- Export a WebMap (qgis2web)
+
+]
+
+---
+# Upload both WebMaps from today
+
+.pl[
+You must keep your individual WebMap files very organized in separate folders.
+
+If your files for this course are a mess things will become much much harder to resolve for you.
+]
+
+.pr[
+Beyond just updating these two maps, you must update your main index.html file that we worked on first today, to point to the two new maps.
+]
+
+---
+# Homework
+
+.pl[
+1. Finish all the excercises from today's lecture.
+2. Create a Leaflet map showing points, markers, and/or polygons, with popups for points of interest in Luxembourg (or another location of your choice that is not London). **Please don't share any personal location data (e.g., house, work).
+3. Create a QGIS map of any data/content of your choice.
+4. Upload the above two maps to your server space.
+5. Both maps must be linked from your main index.html file.
+]
+
+---
+# Configuring a Ubuntu 20.04LTS Webserver
+
+.pull-left[
+### Install and configure Apache2
+Log-in as root:
+
+```
+apt install apache2
+apache2 -version
+ufw app list
+ufw allow ‘Apache’
+ufw allow 'OpenSSH'
+ufw status
+
+# if still inactive try
+ufw enable
+
+# check website: http://167.99.221.7/
+# Note we are using http and not https
+
+# Enable user directories
+a2enmod userdir
+systemctl restart apache2
+```
+]
+
+.pull-right[.ts[
+### Create users and enable websites
+```
+# use newusers (for usage see: man newusers) to create users from file
+# pw_name:pw_passwd:pw_uid:pw_gid:pw_gecos:pw_dir:pw_shell
+# cyrille:8t3n997zqb::student::/home/cyrille:
+newusers students_list
+
+# update the common page
+vim /var/www/html/index.html
+
+# Enable ftp
+# From /etc/ssh/sshd_config comment out
+Subsystem       sftp    /usr/libexec/openssh/sftp-server
+# add
+Subsystem       sftp    internal-sftp
+
+# and at the bottom
+Match Group students
+ChrootDirectory /home
+X11Forwarding no
+AllowTcpForwarding no
+AllowAgentForwarding no
+ForceCommand internal-sftp
+PasswordAuthentication yes
+
+# restart the service
+/etc/init.d/ssh restart
+
+```
+]]
