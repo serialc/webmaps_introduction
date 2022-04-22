@@ -224,9 +224,10 @@ To connect to the server, configure FileZilla by opening the Site Manager:
 
 ---
 class: inverse, center, middle, activity
-# Upload your website to FileZilla now
+# Activity 2
 
 .pl[
+## Upload your website to FileZilla now
 It should have a main **index.html** page, and
 an **aboutme.html** page. 
 ]
@@ -250,22 +251,120 @@ Follow the instructions on the Quick Start Guide and integrate the resources (CS
 ]
 
 ---
-# Linking your files (but doomed?)
+# A tale of two codes
 
-.pl[
-The `&lt;head&gt;`:
+Look in the provided **resources/A_tale_of_two_codes** to see the two files below (here abridged to fit):
+
+.ts[.pull-left[
+
+```html
+    &lt;head&gt;
+        &lt;title&gt;Integrated Leaflet WebMap&lt;/title&gt;
+        &lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"/&gt;
+        &lt;script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"&gt;&lt;/script&gt;
+        &lt;style&gt;
+            #map { height: 180px; }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id="map"&gt;&lt;/div&gt;
+        &lt;script&gt;
+            var map = L.map('map').setView([51.505, -0.09], 13);
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                attribution: 'Map data &amp;copy; &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors, Imagery © &lt;a href="https://www.mapbox.com/"&gt;Mapbox&lt;/a&gt;',
+                maxZoom: 18, id: 'mapbox/streets-v11',
+                tileSize: 512, zoomOffset: -1,
+                accessToken: 'your.mapbox.access.token'
+            }).addTo(map);
+        &lt;/script&gt;
+    &lt;/body&gt;
+```
+
+]]
+
+.ts[.pull-right[ 
+
+```html
+    &lt;head&gt;
+        &lt;title&gt;Separated Leaflet WebMap&lt;/title&gt;
+        &lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"/&gt;
+        &lt;script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"&gt;&lt;/script&gt;
+        &lt;link rel="stylesheet" href="separated.css"/&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id="map"&gt;&lt;/div&gt;
+        &lt;script src="separated.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+```
+
+
+```css
+/* separated.css */
+#map { height: 180px; }
+```
+
+
+&lt;style type="text/css"&gt;
+/* separated.css */
+#map { height: 180px; }
+&lt;/style&gt;
+
+
+```js
+// separated.js
+var map = L.map('map').setView([51.505, -0.09], 13);
+
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &amp;copy; &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors, Imagery © &lt;a href="https://www.mapbox.com/"&gt;Mapbox&lt;/a&gt;',
+    maxZoom: 18, id: 'mapbox/streets-v11',
+    tileSize: 512, zoomOffset: -1,
+    accessToken: 'your.mapbox.access.token'
+}).addTo(map);
+```
+
+
+&lt;script type="text/javascript"&gt;
+// separated.js
+var map = L.map('map').setView([51.505, -0.09], 13);
+
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &amp;copy; &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors, Imagery © &lt;a href="https://www.mapbox.com/"&gt;Mapbox&lt;/a&gt;',
+    maxZoom: 18, id: 'mapbox/streets-v11',
+    tileSize: 512, zoomOffset: -1,
+    accessToken: 'your.mapbox.access.token'
+}).addTo(map);
+&lt;/script&gt;
+
+]]
+
+???
+
+On the left the three, HTML, CSS, and JS are integrated.
+
+On the right are the contents of separate files. The HTML, CSS, and JS.
+
+---
+# Linking your files
+
+.pull-left[
+In the `&lt;head&gt;`:
 - Webpage title
 - Link to Leaflet CSS
 - Link to Leaflet JS
-- Link to your CSS from directions
-- Link to your JS from directions
+- Link to **your** CSS
 
-The `&lt;body&gt;`:
+In the `&lt;body&gt;`:
 - a `&lt;div id="something"&gt;&lt;/div&gt;` that will contain your WebMap.
+- below the above
+  - Link to **your** JS
+  
+**Just like we linked HTML to CSS and JS files, we inside them link back to elements in the HTML, using CSS and JS to refer to elements.
+
+In this exercise the  ```{html}&lt;div id="map"&gt;&lt;/div&gt;```.
 ]
 
 .pull-right[
-Follow the [directions](https://leafletjs.com/SlavaUkraini/examples/quick-start/) for the following sections:
+You will follow the [directions](https://leafletjs.com/SlavaUkraini/examples/quick-start/) for the following sections:
 - [Preparing your page](https://leafletjs.com/SlavaUkraini/examples/quick-start/#preparing-your-page)
 - [Setting up the map](https://leafletjs.com/SlavaUkraini/examples/quick-start/#setting-up-the-map)
 - [Markers, circles, and polygons](https://leafletjs.com/SlavaUkraini/examples/quick-start/#markers-circles-and-polygons)
@@ -284,27 +383,37 @@ I will do an overview of the activity steps first.
 
 Explain why this is doomed to failure.
 
-
 ---
 # Mapbox
 
-.pl[
+.pull-left[
 As you've seen from the previous exercise, the tiles you are using belong to Mapbox, created from OSM data.
 
-As we will not be generating our own tiles in this course we need to use someone's. Mapbox's business is providing tools and resources, such as these tiles.
+As we will not be generating our own tiles in this course **we need to use someone's image tiles**. Mapbox's business is providing tools and resources, such as these tiles.
 
 There are many sources of map tiles, many of which you must register and retrieve a `key` to be able to use.
 
 If you exceed certain usage limits you will be cut-off and required to pay to continue.
+
+Unless you have a popular site or WebMap you're unlikely to reach the non-free tiers from Mapbox or other services.
 ]
 
 .pull-right[
-Many alternative sources exist:
 
-.w75[[![WebMap containing various tile sources](imgs/l2/xyztiles.png)](http://openwhatevermap.xyz)]
+Many alternative map [sources](http://openwhatevermap.xyz) exists to Mapbox:
 
-Try setting the `tileLayer` to an alternative source, for example:
-http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png
+.w50[[![WebMap containing various tile sources](imgs/l2/xyztiles.png)](http://openwhatevermap.xyz)]
+
+Either update your `L.tileLayer` source (and attribution!) to an alternative source or register with Mapbox and update the `accessToken`:
+
+.ts[
+- http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png
+- http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png
+- https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg
+- https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png
+- http://{s}.tiles.maps.sputnik.ru/{z}/{x}/{y}.png
+- http://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png
+]
 ]
 
 ???
@@ -315,10 +424,17 @@ Feel free to ask each other for assistance, or myself.
 
 ---
 class: inverse, center, middle, activity
-# Complete your WebMap
+# Activity 3
+
+.pl[
+## Complete the Leaflet creation WebMap exercise
+Use the instructions and code above and in the resources zip file to help you [complete the tasks](#15).
+
+While adding the JS tutorial code you **must** be aware of what you are doing and not just copying code.
+]
 
 ---
-# An alternative method - QGIS
+# An alternative WebMaps method using QGIS
 
 .pl[
 We will dive straight into another activity. Making a WebMap of certain flight paths of your choice.
@@ -349,27 +465,52 @@ Explore how to do the following activities in QGIS:
 ]
 
 ---
+class: inverse, center, middle, activity
+# Activity 4
+
+.pl[
+## Complete your QGIS WebMap
+Here's a [demonstration](https://youtu.be/mgQvlTIALvU)
+
+You should replicate the process for an airport of your choice **other than Luxembourg**.
+]
+
+---
 # Upload both WebMaps from today
 
 .pl[
-You must keep your individual WebMap files very organized in separate folders.
+**You must keep your individual WebMap files very organized in separate folders.**
 
 If your files for this course are a mess things will become much much harder to resolve for you.
+
+Beyond just updating these two maps, you must update your main index.html file that we worked on first today, **to point/link to the two new maps**.
 ]
 
 .pr[
-Beyond just updating these two maps, you must update your main index.html file that we worked on first today, to point to the two new maps.
 ]
 
 ---
 # Homework
 
 .pl[
-1. Finish all the excercises from today's lecture.
-2. Create a Leaflet map showing points, markers, and/or polygons, with popups for points of interest in Luxembourg (or another location of your choice that is not London). **Please don't share any personal location data (e.g., house, work).
-3. Create a QGIS map of any data/content of your choice.
-4. Upload the above two maps to your server space.
-5. Both maps must be linked from your main index.html file.
+## Exercises
+- Finish all the exercises from today's lecture.
+  - Replicating the Leaflet London map
+  - Creating a flight paths map of any airport
+]
+
+.pr[
+## Replication
+- Create *another Leaflet* map showing points, markers, and/or popups for **points of interest in Luxembourg** (or another location of your choice that is not London).
+&lt;br&gt;**Please don't share any personal location data (e.g., house, work)**.
+- Create a WebMap using QGIS of any data/content of your choice.
+
+]
+
+.tl[
+## Your server space
+4. Upload the above four maps to your server space.
+5. All maps must be linked from your main index.html file.
 ]
 
 ---
