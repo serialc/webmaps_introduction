@@ -22,7 +22,7 @@ This course provides a theoretical and practical introduction to webmaps broken 
     - Browser
     - Coding 
   
-2. Building simple WebMaps and uploading them to a server
+2. [Building simple WebMaps and uploading them to a server](Lesson2.html)
   - Making and understanding the index file
   - Uploading your web page from last week to the server
   - Creating your first WebMap (Leaflet)
@@ -35,6 +35,6 @@ This course provides a theoretical and practical introduction to webmaps broken 
   - Creating a legend
   - Creating an interactive information panel
 
-4. [Making WebMaps with R](Lesson4.html)
+4. Making WebMaps with R
   - R Leaflet maps
   - R Shiny
