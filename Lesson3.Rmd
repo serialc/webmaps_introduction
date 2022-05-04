@@ -1,6 +1,6 @@
 ---
 title: "Introduction to WebMaps"
-subtitle: "Lesson 1: Theory, practices and required skills"
+subtitle: "Lesson 3: Legendary - Adding functionality"
 author: "Dr. **Cyrille Médard de Chardon**"
 institute: "<br>University of Luxembourg &<br>Luxembourg Institute of Socio-Economic Research (LISER)"
 date: "<br>April 1, 2022"
@@ -40,18 +40,42 @@ library(xaringanthemer)
 xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css"))
 ```
 
-# WebGIS subsection outline
+# Lesson 3
 
-.pull-left[.tl[
-Left column
+.pl[
+## Agenda
+- Debugging a WebMap
+- Adding external data
+- Creating a legend
+- Creating an interactive information panel
+]
 
-]]
+.pr[
+## Homework reminder
 
-.pull-right[.tl[
-Right column
+Homework is due before the next class.
+So today's lesson work and homework is due next week.
 
-.source[the source]
-]]
+]
+
+---
+# Adding external data
+
+.pl[
+We can add various data types to a Leaflet map.
+
+- GeoJSON data
+  - Transforming GeoJSON to JS
+  - Loading GeoJSON
+
+]
+
+---
+# Adding a legend
+
+---
+# Adding an interactive information panel
+
 
 ---
 
