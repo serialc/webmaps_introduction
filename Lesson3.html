@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introduction to WebMaps</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Cyrille Médard de Chardon" />
+    <meta name="date" content="2022-04-01" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/animate.css/animate.xaringan.css" rel="stylesheet" />
+    <link rel="stylesheet" href="custom/custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introduction to WebMaps
+]
+.subtitle[
+## Lesson 3: Legendary - Adding functionality
+]
+.author[
+### Dr. <strong>Cyrille Médard de Chardon</strong>
+]
+.institute[
+### <br>University of Luxembourg &amp;<br>Luxembourg Institute of Socio-Economic Research (LISER)
+]
+.date[
+### <br>April 1, 2022
+]
+
+---
+
+class: 
+
+
+
+
+# Lesson 3
+
+.pl[
+## Agenda
+- Debugging a WebMap
+- Adding external data
+- Creating a legend
+- Creating an interactive information panel
+]
+
+.pr[
+## Homework reminder
+
+Homework is due before the next class.
+So today's lesson's class and homework is due next week.
+
+]
+
+---
+# More data please
+
+.pl[
+So from last weeks homework you could replicate the Leaflet tutorial and add additional markers and circles to the WebMap by duplicating the provided code:
+
+
+```js
+// A marker
+var marker = L.marker([51.5, -0.09]).addTo(map);
+
+// A circle
+var circle = L.circle([51.508, -0.11], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 500
+}).addTo(map);
+```
+
+
+&lt;script type="text/javascript"&gt;
+// A marker
+var marker = L.marker([51.5, -0.09]).addTo(map);
+
+// A circle
+var circle = L.circle([51.508, -0.11], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 500
+}).addTo(map);
+&lt;/script&gt;
+]
+
+.pr[
+You also saw how to add **popups** to markers or points, but really any leaflet feature (e.g., marker, polygon, line):
+
+
+```js
+// continuing from previous code
+marker.bindPopup("I am a marker.").openPopup();
+circle.bindPopup("I am a circle.");
+```
+
+
+&lt;script type="text/javascript"&gt;
+// continuing from previous code
+marker.bindPopup("I am a marker.").openPopup();
+circle.bindPopup("I am a circle.");
+&lt;/script&gt;
+
+But what if we have a lot more data, for example exported from a GIS?
+]
+
+
+---
+# Adding external data
+
+.pl[
+Aside from manually copying the code repeatedly, like for last week's homework and the last slide, there are **two more effective ways** to load data sets into Leaflet:
+
+1. Synchronously - this requires a bit of prep, transforming the GeoJSON file to JS, and linking the data in our `&lt;head&gt;&lt;/head&gt;` just as we linked JS files.
+2. Asynchronously - this will load the data when needed but requires `fetching` it in your JS code. This is the cleaner and better option.
+]
+
+.pr[
+While we can import CSV data as well, we'll focus on GeoJSON data.
+
+In your [resource file](l3/lesson3.zip) for this week, you'll find a folder named LuxPopulation and one data set in three formats:
+
+- Shapefile
+- JS
+- GeoJSON
+
+The JS and GeoJSON files are almost identical.
+]
+
+---
+# Synchronously - Converting between formats
+
+Converting from shapefile to GeoJSON is only a matter of exporting it from your GIS of choice.
+
+As noted on the last slide converting from a GeoJSON file to a JS requires a **minor** intervention.
+
+.pull-left[
+Given the contents of a [GeoJSON](https://geojson.org/) file named **dinagat.geojson**:
+
+```js
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [125.6, 10.1]
+  },
+  "properties": {
+    "name": "Dinagat Islands"
+  }
+}
+```
+
+
+&lt;script type="text/javascript"&gt;
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [125.6, 10.1]
+  },
+  "properties": {
+    "name": "Dinagat Islands"
+  }
+}
+&lt;/script&gt;
+]
+
+.pull-right[
+We can convert it to JS by simply making the following changes and renaming it **dinagat.js**:
+
+```js
+var islands_location = {
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [125.6, 10.1]
+  },
+  "properties": {
+    "name": "Dinagat Islands"
+  }
+};
+```
+
+
+&lt;script type="text/javascript"&gt;
+var islands_location = {
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [125.6, 10.1]
+  },
+  "properties": {
+    "name": "Dinagat Islands"
+  }
+};
+&lt;/script&gt;
+]
+
+---
+# Adding GeoJSON data in a JS file to a WebMap
+
+.pl[
+To now use this data with Leaflet I first need to link it to my main HTML document.
+
+In the `&lt;head&gt;&lt;/head&gt;` section I simply add:
+
+```html
+&lt;script src="dinagat.js" type="text/javascript"&gt;&lt;/script&gt;
+```
+
+I can now use this file in my JS by simply referring to the data variable name from the **dinagat.js** file named **islands_location**.
+]
+
+.pr[
+In the previous lesson you used Leaflet methods (e.g.,   L.marker, L.circle, L.polygon) to create features.
+
+Similarly, you can create and add **all** the features in the GeoJSON data (within the JS file) to the map:
+
+
+```js
+// after I have created my map
+L.geoJSON(islands_location).addTo(map);
+```
+
+
+&lt;script type="text/javascript"&gt;
+// after I have created my map
+L.geoJSON(islands_location).addTo(map);
+&lt;/script&gt;
+
+So while in this case I have one data point, if my JS file's GeoJSON contained many features, they would all appear.
+
+]
+
+---
+# Asynchronously - Loading the GeoGJSON
+
+.pl[
+For this method we don't need to modify the GeoJSON data that we potentially exported from a GIS. This method is more robust and doesn't require us fidling with data file internals (i.e., convert GeoJSON to JS).
+
+All that is required is, after the Leaflet map has been created, is request that the JS fetch the data and display it:
+
+
+```js
+fetch("dinagat.geojson")
+  .then(function(response) { return response.json(); })
+  .then(function(data) { L.geoJSON(data).addTo(map); });
+```
+
+
+&lt;script type="text/javascript"&gt;
+fetch("dinagat.geojson")
+  .then(function(response) { return response.json(); })
+  .then(function(data) { L.geoJSON(data).addTo(map); });
+&lt;/script&gt;
+]
+
+.pr[
+All these lines do is request the file, indicate how to process the data type (JSON), and then add it to the map.
+
+You could expand this farther if you wish to do further work with the data after receiving it:
+
+
+```js
+fetch("dinagat.geojson")
+  .then(function(response) { return response.json(); })
+  .then(function(data) {
+    L.geoJSON(data).addTo(map);
+    // do other things with the data
+  });
+```
+
+
+&lt;script type="text/javascript"&gt;
+fetch("dinagat.geojson")
+  .then(function(response) { return response.json(); })
+  .then(function(data) {
+    L.geoJSON(data).addTo(map);
+    // do other things with the data
+  });
+&lt;/script&gt;
+
+]
+
+---
+# The asynchronous catch
+
+.pl[
+It appears that the asynchronous methods is remarkably simpler, but **there's a catch**.
+
+The `fetch` command makes a request that only a server can understand. Not your normal Windows installation.
+
+This means, in the context of this course, that you are not able to test this on your local machine and **you must upload your code to test your asynchronous code**.
+]
+
+.pr[
+This catch counterbalances what synchronous and asynchronous data loading.
+
+If you're going to retrieve a large amount of data however, it's much better to use the asynchronous method to reduce page loading time and only load the data the user asks for.
+
+- Synchronous loading loads all the data
+- Asynchronous only loads the requested data
+]
+
+---
+class: inverse, center, middle, activity
+# Activity 1 - Add external data
+
+.pl[
+Using the WebMap code templates from [last week](l2/lesson2.zip) (resources/A_tale_of_two_codes), your task is to create two WebMaps of Luxembourg's communes using the [data provided](l3/lesson3.zip).
+- One using synchronous loading (the JS file)
+- One using asynchronous loading (fetching the GeoJSON)
+]
+
+.pr[
+While I provide the data in shapefile, GeoJSON and in JS format, please start with the shapefile and see if you can convert it correctly through to GeoJSON and to JS.
+]
+
+---
+j# Processing data
+
+.pull-left[
+We now have the ability to add larger quantities of data to a WebMap.
+Just like with a GIS, we typically want to style features differently based on attribute values.
+
+**So**, it's possible to style all your features in the same manner:
+
+```js
+let styling = {
+  "color": "blue", // of polygon fill
+  "weight": 2, // of line thickness
+  "opacity": 0.5 // of polygon fill
+};
+ 
+// note the added 'styling' and brackets
+L.geoJSON(data, {
+  style: styling
+}).addTo(map);
+```
+
+
+&lt;script type="text/javascript"&gt;
+let styling = {
+  "color": "blue", // of polygon fill
+  "weight": 2, // of line thickness
+  "opacity": 0.5 // of polygon fill
+};
+ 
+// note the added 'styling' and brackets
+L.geoJSON(data, {
+  style: styling
+}).addTo(map);
+&lt;/script&gt;
+]
+
+.pull-right[
+**But** we want to make each polygon a colour based on an attribute value:
+
+
+```js
+L.geoJSON(data, {
+  style: function(feature) {
+    // Note the N2013 - this is the attribute name!
+    mapval = feature.properties.N2013;
+
+    if(mapval &gt; 35000) return {fillColor: '#7f0000', fillOpacity: 1};
+    if(mapval &gt; 30000) return {fillColor: '#b30000', fillOpacity: 1};
+    if(mapval &gt; 20000) return {fillColor: '#d7301f', fillOpacity: 1};
+    if(mapval &gt; 10000) return {fillColor: '#ef6548', fillOpacity: 1};
+    if(mapval &gt; 5000) return {fillColor: '#fc8d59', fillOpacity: 1};
+    if(mapval &gt; 3000) return {fillColor: '#fdbb84', fillOpacity: 1};
+    if(mapval &gt; 2000) return {fillColor: '#fdd49e', fillOpacity: 1};
+    if(mapval &gt; 1000) return {fillColor: '#fee8c8', fillOpacity: 1};
+    if(mapval &gt; 500) return {fillColor: '#fff7ec', fillOpacity: 1};
+    if(mapval &gt; 0) return {fillColor: '#ffffff', fillOpacity: 1};
+  }
+}).addTo(map);
+```
+
+
+&lt;script type="text/javascript"&gt;
+L.geoJSON(data, {
+  style: function(feature) {
+    // Note the N2013 - this is the attribute name!
+    mapval = feature.properties.N2013;
+
+    if(mapval &gt; 35000) return {fillColor: '#7f0000', fillOpacity: 1};
+    if(mapval &gt; 30000) return {fillColor: '#b30000', fillOpacity: 1};
+    if(mapval &gt; 20000) return {fillColor: '#d7301f', fillOpacity: 1};
+    if(mapval &gt; 10000) return {fillColor: '#ef6548', fillOpacity: 1};
+    if(mapval &gt; 5000) return {fillColor: '#fc8d59', fillOpacity: 1};
+    if(mapval &gt; 3000) return {fillColor: '#fdbb84', fillOpacity: 1};
+    if(mapval &gt; 2000) return {fillColor: '#fdd49e', fillOpacity: 1};
+    if(mapval &gt; 1000) return {fillColor: '#fee8c8', fillOpacity: 1};
+    if(mapval &gt; 500) return {fillColor: '#fff7ec', fillOpacity: 1};
+    if(mapval &gt; 0) return {fillColor: '#ffffff', fillOpacity: 1};
+  }
+}).addTo(map);
+&lt;/script&gt;
+
+]
+
+???
+
+There's other ways to do this - but I'm trying to keep things simpler.
+
+See the Leaflet documentation on [choropleth maps](https://leafletjs.com/examples/choropleth/) for more information.
+
+---
+# Results
+
+.pl[
+.w66[![Map of Luxembourg with each commune coloured according to population](imgs/l3/luxpop_blue.png)]
+]
+.pr[
+.w66[![Map of Luxembourg with each commune coloured according to population](imgs/l3/luxpop.png)]
+]
+
+---
+class: inverse, center, middle, activity
+# Activity 2 - Creating a choropleth map
+
+.pl[
+Create the WebMap above showing Luxembourg communes coloured differently based on their population (a choropleth map).
+
+This uses the same data as Activity 1. It's simpler for testing here to use your **synchronous** WebMap from the last activity.
+]
+
+.pr[
+When choosing colours yourself I recommend using a colour generator such as [ColorBrewer](https://colorbrewer2.org/#type=sequential&amp;scheme=YlGnBu&amp;n=5)
+]
+
+---
+
+# Making WebMaps legendary
+
+.pull-left[
+Legends are an important part of maps and WebMaps are no different. 
+Leaflet makes adding controls, sort of like panels, to the map easy.
+
+
+```js
+// add the panel at a position
+let legend = L.control({position: 'bottomright'});
+
+// when adding it, do the following
+legend.onAdd = function (map) {
+
+  let div = L.DomUtil.create('div', 'legend panel');
+  div.innerHTML += 
+  '&lt;div&gt;&lt;i style="background: #7f0000;"&gt;&lt;/i&gt; &lt;span&gt;&amp;gt;36,000&lt;/span&gt;&lt;/div&gt;' +
+  '&lt;div&gt;&lt;i style="background: #b30000;"&gt;&lt;/i&gt; &lt;span&gt;35,000 - 30,000&lt;/span&gt;&lt;/div&gt;' +
+  // and a few more
+  '&lt;div&gt;&lt;i style="background: #ffffff;"&gt;&lt;/i&gt; &lt;span&gt;500 - 0&lt;/span&gt;&lt;/div&gt;';
+
+  return div;
+};
+
+legend.addTo(map);
+```
+
+
+&lt;script type="text/javascript"&gt;
+// add the panel at a position
+let legend = L.control({position: 'bottomright'});
+
+// when adding it, do the following
+legend.onAdd = function (map) {
+
+  let div = L.DomUtil.create('div', 'legend panel');
+  div.innerHTML += 
+  '&lt;div&gt;&lt;i style="background: #7f0000;"&gt;&lt;/i&gt; &lt;span&gt;&amp;gt;36,000&lt;/span&gt;&lt;/div&gt;' +
+  '&lt;div&gt;&lt;i style="background: #b30000;"&gt;&lt;/i&gt; &lt;span&gt;35,000 - 30,000&lt;/span&gt;&lt;/div&gt;' +
+  // and a few more
+  '&lt;div&gt;&lt;i style="background: #ffffff;"&gt;&lt;/i&gt; &lt;span&gt;500 - 0&lt;/span&gt;&lt;/div&gt;';
+
+  return div;
+};
+
+legend.addTo(map);
+&lt;/script&gt;
+]
+
+.pull-right[
+Almost done, we need a bit of CSS to make it pretty.
+
+
+```css
+.legend {
+  line-height: 18px;
+}
+.legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+}
+.panel {
+  background-color: white;
+  padding: 6px;
+}
+```
+
+
+&lt;style type="text/css"&gt;
+.legend {
+  line-height: 18px;
+}
+.legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+}
+.panel {
+  background-color: white;
+  padding: 6px;
+}
+&lt;/style&gt;
+
+We should now have a legend appear at the bottom right of our WebMap.
+
+.source[https://leafletjs.com/examples/choropleth/]
+]
+
+---
+class: inverse, center, middle, activity
+# Activity 3 - Adding a legend
+
+.pl[
+Add a simple legend to your Luxembourg population map.
+
+You don't need to add all the classes, just 3 or so to show it functions.
+]
+
+---
+# Adding an interactive information panel
+
+.pull-left[
+The final step, and one of the reasons for using WebMaps over static maps,
+is their ability to to be interactive.
+
+This will show you howt to add another
+control panel, but rather than display a legend we'll display attribute data
+sort of like the popups but in one location.
+
+Let's start by creating another control for information:
+
+```js
+let infopanel = L.control({position: 'topright'});
+infopanel.onAdd = function (map) {
+  let div = L.DomUtil.create('div', 'panel');
+  div.innerHTML += '&lt;div id="details"&gt;Place your cursor over a commune for details&lt;/div&gt;';
+  return div;
+};
+infopanel.addTo(map);
+```
+
+
+&lt;script type="text/javascript"&gt;
+let infopanel = L.control({position: 'topright'});
+infopanel.onAdd = function (map) {
+  let div = L.DomUtil.create('div', 'panel');
+  div.innerHTML += '&lt;div id="details"&gt;Place your cursor over a commune for details&lt;/div&gt;';
+  return div;
+};
+infopanel.addTo(map);
+&lt;/script&gt;
+
+The information panel should now be visible, but not interactive.
+]
+
+.pull-right[
+To add interactivity:
+
+```js
+function overAction(e) {
+    let f = e.target.feature;
+    document.getElementById("details").innerHTML =
+      "&lt;h3&gt;" + f.properties.NAME_3 + "&lt;/h3&gt;" +
+      "&lt;p&gt;Population 2013: " + f.properties.N2013 + "&lt;/p&gt;";
+    console.log(f.properties);
+};
+
+L.geoJSON(data, {
+  onEachFeature: function(feature, layer) {
+    layer.on({
+      mouseover: overAction
+    });
+  },
+  style: // styling code from earlier was here
+});
+```
+
+
+&lt;script type="text/javascript"&gt;
+function overAction(e) {
+    let f = e.target.feature;
+    document.getElementById("details").innerHTML =
+      "&lt;h3&gt;" + f.properties.NAME_3 + "&lt;/h3&gt;" +
+      "&lt;p&gt;Population 2013: " + f.properties.N2013 + "&lt;/p&gt;";
+    console.log(f.properties);
+};
+
+L.geoJSON(data, {
+  onEachFeature: function(feature, layer) {
+    layer.on({
+      mouseover: overAction
+    });
+  },
+  style: // styling code from earlier was here
+});
+&lt;/script&gt;
+]
+
+???
+
+Explain in detail the code sections.
+
+Source or for more information see: https://leafletjs.com/examples/choropleth/
+
+---
+class: inverse, center, middle, activity
+# Activity 4 - Adding an information panel
+
+.pl[
+Follow the directions in the earlier slide to add an information panel that provides the name of the commune and the population.
+
+Note that you **need to be careful where you add the code!**
+]
+
+---
+
+# Homework
+
+.pl[
+## Exercises
+Finish the four exercises from today's lecture.
+- Create two WebMaps loading data in synchronously and async.
+- Create a synchronously data loading choropleth map of Luxembourg's population
+- Add a legend to the choropleth WebMap
+- Add a information panel to the choropleth WebMap
+]
+
+.pull-right[
+## Replication
+Your homework assignment for next week is to create a similar map to the Luxembourg Population map,
+but with content/data of your choice.
+Please provide:
+- a Legend
+- an information panel
+  
+**Upload** the three WebMaps to your server space:
+- The simple asynchronous WebMap
+- Luxembourg population WebMap with legend and information panel
+- Your independent WebMap with legend and info panel
+- Update your main index.html to point to all your WebMaps
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="custom/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

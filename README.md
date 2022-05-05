@@ -29,7 +29,7 @@ This course provides a theoretical and practical introduction to webmaps broken 
   - Creating a WebMap of flight paths using QGIS
   - Uploading more WebMaps to your server
   
-3. Adding data and components
+3. [Adding data and components](Lesson3.html)
   - Debugging a WebMap
   - Adding external data to a map
   - Creating a legend
