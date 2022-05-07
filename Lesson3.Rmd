@@ -97,8 +97,8 @@ But what if we have a lot more data, for example exported from a GIS?
 .pl[
 Aside from manually copying the code repeatedly, like for last week's homework and the last slide, there are **two more effective ways** to load data sets into Leaflet:
 
-1. Synchronously - this requires a bit of prep, transforming the GeoJSON file to JS, and linking the data in our `<head></head>` just as we linked JS files.
-2. Asynchronously - this will load the data when needed but requires `fetching` it in your JS code. This is the cleaner and better option.
+1. **Asynchronously** - this will load the data when needed but requires `fetching` it in your JS code. This is the cleaner and better option.
+2. **Synchronously** - this requires a bit of prep, transforming the GeoJSON file to JS, and linking the data in our `<head></head>` just as we linked JS files.
 ]
 
 .pr[
@@ -107,37 +107,41 @@ While we can import CSV data as well, we'll focus on GeoJSON data.
 In your [resource file](l3/lesson3.zip) for this week, you'll find a folder named LuxPopulation and one data set in three formats:
 
 - Shapefile
-- JS
 - GeoJSON
+- JS
 
-The JS and GeoJSON files are almost identical.
+The JS and GeoJSON files are **almost** identical.
 ]
 
 ---
-# Synchronously - Converting between formats
+# A/Synchronously loading
+
+.pl[
+## Synchronous loading
+
+![Website loading resources synchronously - bar plot](imgs/l3/sync.png)
+]
+
+.pr[
+## Asynchronous loading
+![Website loading resources asynchronously - bar plot](imgs/l3/async.png)
+]
+
+---
+# Converting between data formats
 
 Converting from shapefile to GeoJSON is only a matter of exporting it from your GIS of choice.
 
 As noted on the last slide converting from a GeoJSON file to a JS requires a **minor** intervention.
 
-.pull-left[
-Given the contents of a [GeoJSON](https://geojson.org/) file named **dinagat.geojson**:
-```{js}
-{
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [125.6, 10.1]
-  },
-  "properties": {
-    "name": "Dinagat Islands"
-  }
-}
-```
-]
+.w100[![Simple representation of file type changes](imgs/l3/conversion.svg)]
+---
+# Comparison of JS code & GeoJSON data
 
-.pull-right[
-We can convert it to JS by simply making the following changes and renaming it **dinagat.js**:
+JS came first (1993) and provided a way to contain data in the code, but eventually people needed a format to store and transfer data with outside of JS code, so they created the JS Object Notation (JSON) (2001) and later (2008) a specific structure of JSON for geographic data named [GeoJSON](https://geojson.org/). Here's the same data contained in JS file and GeoJSON:
+
+.pull-left[
+## dinagat.js
 ```{js}
 var islands_location = {
   "type": "Feature",
@@ -152,18 +156,39 @@ var islands_location = {
 ```
 ]
 
+.pull-right[
+## dinagat.geojson
+```{js}
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [125.6, 10.1]
+  },
+  "properties": {
+    "name": "Dinagat Islands"
+  }
+}
+```
+]
+
+Note the minor differences between the two.
+
 ---
-# Adding GeoJSON data in a JS file to a WebMap
+# Synchronously - Adding JS GeoJSON data
 
 .pl[
-To now use this data with Leaflet I first need to link it to my main HTML document.
+To now use this GeoJSON data in a JS file with Leaflet we first need to link it to your HTML document.
 
 In the `<head></head>` section I simply add:
+.ts[
 ```{html}
+<!-- obviously change the name of the file to match -->
 <script src="dinagat.js" type="text/javascript"></script>
 ```
+]
 
-I can now use this file in my JS by simply referring to the data variable name from the **dinagat.js** file named **islands_location**.
+You can now use the data in your main JS code by simply referring to the **data variable** name defined in the **dinagat.js** file named **islands_location**.
 ]
 
 .pr[
@@ -176,7 +201,7 @@ Similarly, you can create and add **all** the features in the GeoJSON data (with
 L.geoJSON(islands_location).addTo(map);
 ```
 
-So while in this case I have one data point, if my JS file's GeoJSON contained many features, they would all appear.
+So while in this case the data contains only one data point, if the JS file's GeoJSON contained many features, they would all appear with this simple line of code.
 
 ]
 
@@ -184,15 +209,17 @@ So while in this case I have one data point, if my JS file's GeoJSON contained m
 # Asynchronously - Loading the GeoGJSON
 
 .pl[
-For this method we don't need to modify the GeoJSON data that we potentially exported from a GIS. This method is more robust and doesn't require us fidling with data file internals (i.e., convert GeoJSON to JS).
+For this method you can directly use the GeoJSON data file (potentially export from your GIS). This method is more robust and doesn't require us fiddling with data file internals (i.e., convert GeoJSON to JS).
 
 All that is required is, after the Leaflet map has been created, is request that the JS fetch the data and display it:
 
+.ts[
 ```{js}
 fetch("dinagat.geojson")
   .then(function(response) { return response.json(); })
   .then(function(data) { L.geoJSON(data).addTo(map); });
 ```
+]
 ]
 
 .pr[
@@ -200,6 +227,7 @@ All these lines do is request the file, indicate how to process the data type (J
 
 You could expand this farther if you wish to do further work with the data after receiving it:
 
+.ts[
 ```{js}
 fetch("dinagat.geojson")
   .then(function(response) { return response.json(); })
@@ -208,6 +236,7 @@ fetch("dinagat.geojson")
     // do other things with the data
   });
 ```
+]
 
 ]
 
@@ -219,16 +248,18 @@ It appears that the asynchronous methods is remarkably simpler, but **there's a 
 
 The `fetch` command makes a request that only a server can understand. Not your normal Windows installation.
 
-This means, in the context of this course, that you are not able to test this on your local machine and **you must upload your code to test your asynchronous code**.
+This means, in the context of this course, that you are not able to test this on your local machine and **you must upload your code to the server with FileZilla to test your asynchronous code**.
 ]
 
 .pr[
-This catch counterbalances what synchronous and asynchronous data loading.
+## Pros & Cons
+It's much better to use the asynchronous method to reduce page loading time and only load the data the user asks for. It also requires less fiddling (GeoJSON -> JS conversion).
 
-If you're going to retrieve a large amount of data however, it's much better to use the asynchronous method to reduce page loading time and only load the data the user asks for.
+In the context of this course however, the synchronous method allows easier testing.
 
-- Synchronous loading loads all the data
-- Asynchronous only loads the requested data
+Loads data:
+- Synchronous - at the start of the page load
+- Asynchronous - when and if necessary
 ]
 
 ---
@@ -236,7 +267,7 @@ class: inverse, center, middle, activity
 # Activity 1 - Add external data
 
 .pl[
-Using the WebMap code templates from [last week](l2/lesson2.zip) (resources/A_tale_of_two_codes), your task is to create two WebMaps of Luxembourg's communes using the [data provided](l3/lesson3.zip).
+Using the WebMap code templates from [last week](rsrcs/l2/lesson2.zip) (resources/A_tale_of_two_codes), your task is to create two WebMaps of Luxembourg's communes using the [data provided](rsrcs/l3/lesson3.zip).
 - One using synchronous loading (the JS file)
 - One using asynchronous loading (fetching the GeoJSON)
 ]
@@ -270,6 +301,7 @@ L.geoJSON(data, {
 .pull-right[
 **But** we want to make each polygon a colour based on an attribute value:
 
+.ts[
 ```{js}
 L.geoJSON(data, {
   style: function(feature) {
@@ -289,6 +321,7 @@ L.geoJSON(data, {
   }
 }).addTo(map);
 ```
+]
 
 ]
 
@@ -302,10 +335,12 @@ See the Leaflet documentation on [choropleth maps](https://leafletjs.com/example
 # Results
 
 .pl[
-.w66[![Map of Luxembourg with each commune coloured according to population](imgs/l3/luxpop_blue.png)]
+### No classification
+.w100[![Map of Luxembourg with each commune coloured according to population](imgs/l3/luxpop_blue.png)]
 ]
 .pr[
-.w66[![Map of Luxembourg with each commune coloured according to population](imgs/l3/luxpop.png)]
+### Classification
+.w100[![Map of Luxembourg with each commune coloured according to population](imgs/l3/luxpop.png)]
 ]
 
 ---

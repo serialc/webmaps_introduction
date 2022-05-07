@@ -393,11 +393,11 @@ Many alternative map [sources](http://openwhatevermap.xyz) exists to Mapbox:
 Either update your `L.tileLayer` source (and attribution!) to an alternative source or register with Mapbox and update the `accessToken`:
 
 .ts[
+- http://tile.openstreetmap.org/{z}/{x}/{y}.png
 - http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png
 - http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png
 - https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg
 - https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png
-- http://{s}.tiles.maps.sputnik.ru/{z}/{x}/{y}.png
 - http://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png
 ]
 ]
