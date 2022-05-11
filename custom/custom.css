@@ -4,7 +4,9 @@ h1 {
 
 .pl, .pr, .tl {
   font-size: 1.2em;
+  margin-top: -24px;
 }
+
 .ts{
   font-size: 0.8em;
 }
@@ -12,6 +14,7 @@ h1 {
 .ms {
   margin-left: 1em;
 }
+
 .me {
   margin-right: 1em;
 }
@@ -55,15 +58,19 @@ h1 {
 
 .pull-left, .pull-right, .pl, .pr {
   text-align: left;
+  margin-top: -24px;
 }
+
 .pl {
   float: left;
   width: 47%;
 }
+
 .pr {
   float: right;
   width: 47%;
 }
+
 .pr + * {
   clear: both;
 }

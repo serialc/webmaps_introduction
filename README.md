@@ -35,6 +35,7 @@ This course provides a theoretical and practical introduction to webmaps broken 
   - Creating a legend
   - Creating an interactive information panel
 
-4. Making WebMaps with R
+4. [Making WebMaps with R](Lesson4.html)
   - R Leaflet maps
-  - R Shiny
+  - Mapbox base map
+  - Final assignment

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introduction to WebMaps</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Cyrille Médard de Chardon" />
+    <meta name="date" content="2022-04-01" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/animate.css/animate.xaringan.css" rel="stylesheet" />
+    <link rel="stylesheet" href="custom/custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introduction to WebMaps
+]
+.subtitle[
+## Lesson 4: Leaflet maps with R
+]
+.author[
+### Dr. <strong>Cyrille Médard de Chardon</strong>
+]
+.institute[
+### <br>University of Luxembourg &amp;<br>Luxembourg Institute of Socio-Economic Research (LISER)
+]
+.date[
+### <br>April 1, 2022
+]
+
+---
+
+class: 
+
+
+
+
+# Lesson 3
+
+.pl[
+## Agenda
+- Making a Leaflet WebMap with R
+- Custom base maps
+]
+
+.pr[
+## Homework reminder
+
+Class activities, homework, and assignments are due next week by the end of the day on May 19th (Thursday).
+
+]
+
+---
+# Create a Leaflet WebMap with R
+
+.pull-left[
+We will quickly demonstrate how you can create a WebMap with the R KnitR package.
+
+Create a new Rstudio project and add the `RLeaflet.Rmd` document to it, then open it in RStudio.
+
+You will likely need to install the KnitR, and Rgdal packages - do so.
+
+This file is a mark-down file (the same used to create this lesson content) that allows the easy styling of text into HTML. The `R` component allows the blending of R code with HTML (or PDF and other formats). This allows you to embed a narrative for your map very easily.
+
+To test the code simply click the `Knit` button in the toolbar above your code.
+
+This will create an HTML file in the same location as your Rmd file.
+]
+
+.pr[
+You can see the full [documentation for making WebMaps with Leaflet in R](https://rstudio.github.io/leaflet/).
+
+The code is relatively simple and requires many of the same inputs as done using JS.
+
+.ts[
+
+```r
+leaflet(width='100%') %&gt;% 
+  setView(lng=lux_lng,lat=lux_lat, zoom=9) %&gt;% 
+  addTiles() %&gt;% 
+  addMarkers(lng=points_lng, lat=points_lat, popup=popup_content)
+```
+]
+]
+
+---
+class: inverse, center, middle, activity
+# Activity 1: Create a WebMap using the R Leaflet package
+
+.pl[
+See the [resources](rsrcs/l4/lesson4.zip) for this week.
+
+Simply having Knitr build the WebMap for you.
+
+Add it to your website.
+]
+
+---
+# Using a Mapbox base map
+
+.pull-left[
+## Get your Mapbox token
+To get your base Mapbox map token:
+- Go to [MapBox](https://www.mapbox.com/) and create an account.
+- Go to your account to copy your token.
+  - It should look like **pk.eyJ1Ij...yeGwQRd4m8r9mQQ**
+
+### Like in Lesson 2
+Following the [Leaflet quick-start instructions](https://leafletjs.com/examples/quick-start/#setting-up-the-map) and add your key at the line:
+
+```js
+accessToken: 'your.mapbox.access.token'
+```
+
+
+&lt;script type="text/javascript"&gt;
+accessToken: 'your.mapbox.access.token'
+&lt;/script&gt;
+
+]
+
+.pr[
+## Creating your own map style
+You can customize your own map style if you would like.
+- Go to [Mapbox Studio](https://studio.mapbox.com/) under the Products heading.
+
+We will not cover that here, but be aware of it.
+]
+ 
+---
+class: inverse, center, middle, activity
+# Activity 2: Create a CFL WebMap using Mapbox
+
+.pl[
+See the [resources](rsrcs/l4/lesson4.zip) for this week.
+
+Use the CFL GeoJSON data to display Luxembourg's:
+- Train lines
+- Train stations
+- Train tunnels
+
+Use the Mapbox basemap.
+]
+
+.pr[
+The easiest option is to use the [async method](Lesson3.html) for loading multiple GeoJSON data sets to your WebMap.
+
+**Remember this will only function when on your server**
+]
+
+---
+class: inverse, center, middle, activity
+# Homework and final assignment
+
+---
+# Final homework assignments WebMap
+
+Your **final homework assignment** is due by the **end of the day on May 19th/Thursday**.
+
+Like previous lessons your homework is to complete all activities but also reproduce what you have learned but using independent data and ideas.
+
+.pl[
+
+## R map
+You must create **another** Leaflet WebMap in R with data and theme of your choice.
+]
+
+.pull-right[
+## Leaflet full feature map
+You will create a WebMap of a topic of your choice.
+You will create a Leaflet map that contains:
+- A Mapbox basemap (of your choice)
+- A legend
+- An interactive info box
+- A context for the map - what's the purpose of the map? The story?
+- This map is worth about a **quarter** of your WebMap course-section grade
+]
+
+---
+
+# Homework
+
+Your **final homework assignment** is due by the **end of the day on May 19th/Thursday**.
+
+.pl[
+## Exercises
+Finish the exercises from today's lecture.
+- Add to your **sync** map the:
+  - legend and
+  - info box
+- Create the leaflet map in R
+- Create the WebMap with a Mapbox base map and token 
+]
+
+.pull-right[
+## Replication
+- Create an additional Leaflet WebMap using data and theme from outside this course in R
+- Final assignment map (previous slide)
+]
+
+### **Like all previous lessons, only homework [on the server](http://167.99.221.7/) is evaluated.**
+
+Make sure that your index page links to your individual WebMaps correctly so that they can be found.
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="custom/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

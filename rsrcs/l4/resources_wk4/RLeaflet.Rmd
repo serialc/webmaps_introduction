@@ -1,0 +1,57 @@
+---
+title: "Leaflet test map"
+author: "My name"
+date: "the date"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo=TRUE}
+library(leaflet)
+library(dplyr)
+```
+
+## Random points map
+This is how you can easily make WebMaps with R.
+
+```{r random_points, echo=TRUE}
+lux_lng <- 6.1319
+lux_lat <- 49.6116
+
+points_lng <- lux_lng + rnorm(26)/10
+points_lat <- lux_lat + rnorm(26)/10
+popup_content <- sample(LETTERS, 26)
+
+leaflet(width='100%') %>% 
+  setView(lng=lux_lng,lat=lux_lat, zoom=9) %>% 
+  addTiles() %>% 
+  addMarkers(lng=points_lng, lat=points_lat, popup=popup_content)
+```
+
+## GeoJSON
+
+It's easy to reproduce many of the Leaflet functions we have covered:
+- add a legend
+- add popups
+
+```{r, echo=FALSE}
+# load the data
+flightpaths <- rgdal::readOGR("flightpaths_all.geojson", verbose = FALSE) 
+luxflights <- flightpaths[flightpaths$src == "LUX" | flightpaths$dst == "LUX",]
+
+# get unique names of airlines
+airlines <- unique(luxflights$name)
+
+# categorical classification
+catpal <- colorFactor(topo.colors(length(airlines)), airlines)
+luxcol <- catpal(luxflights$name)
+
+# continuous classification
+#contpal <- colorNumeric("viridis", NULL)
+#luxcol <- contpal(as.integer(as.factor(luxflights$name)))
+
+leaflet(data = luxflights, width='100%') %>% 
+  setView(lng=lux_lng, lat=lux_lat, zoom=9) %>% 
+  addTiles() %>% 
+  addPolylines(color=luxcol, popup = luxflights$name) %>%
+  addLegend(position = "bottomright", labels=airlines, col = catpal(airlines))
+```
