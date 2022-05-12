@@ -2,6 +2,10 @@ h1 {
   margin-bottom: 1em;
 }
 
+.inverse code {
+  background: hsl(190, 25%, 8%);
+}
+
 .pl, .pr, .tl {
   font-size: 1.2em;
   margin-top: -24px;

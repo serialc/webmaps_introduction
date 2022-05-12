@@ -96,7 +96,7 @@ class: inverse, center, middle, activity
 .pl[
 See the [resources](rsrcs/l4/lesson4.zip) for this week.
 
-Simply having Knitr build the WebMap for you.
+Have Knitr build the WebMap for you.
 
 Add it to your website.
 ]
@@ -123,6 +123,8 @@ accessToken: 'your.mapbox.access.token'
 accessToken: 'your.mapbox.access.token'
 &lt;/script&gt;
 
+Remember that I provided WebMap templates in the lesson 2 [resources](rsrcs/l4/lesson4.zip).
+
 ]
 
 .pr[
@@ -132,12 +134,117 @@ You can customize your own map style if you would like.
 
 We will not cover that here, but be aware of it.
 ]
+
+---
+# Adding and styling multiple data sources
+
+.pull-left[
+
+**It's possible to add multiple data sets**
+
+Just create the styles:
+.ts[
+
+```js
+let line_style = {
+    "color": "black",
+    "dashArray": "4 4",
+    "weight": 2
+            };
+
+let tunnel_style = {
+    "color": "black", 
+    "weight": 4
+            };
+```
+
+
+&lt;script type="text/javascript"&gt;
+let line_style = {
+    "color": "black",
+    "dashArray": "4 4",
+    "weight": 2
+            };
+
+let tunnel_style = {
+    "color": "black", 
+    "weight": 4
+            };
+&lt;/script&gt;
+]
+
+Then retrieve the data.
+]
+
+.pull-right[
+.ts[
+
+```js
+fetch("lines.geojson")
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+        L.geoJSON(data, {style: line_style}).addTo(map);
+});
+
+fetch("stations.geojson")
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+        L.geoJSON(data, {
+            pointToLayer: function(point, latlng) {
+                return L.marker(latlng);
+                //return L.circle(latlng, 1000);
+            },
+            onEachFeature: function(feature, layer) {
+                layer.bindPopup(feature.properties.NOM_GARE);
+            }
+        })
+        .addTo(map);
+});
+
+fetch("tunnels.geojson")
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+        L.geoJSON(data, {style: tunnel_style}).addTo(map);
+});
+```
+
+
+&lt;script type="text/javascript"&gt;
+fetch("lines.geojson")
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+        L.geoJSON(data, {style: line_style}).addTo(map);
+});
+
+fetch("stations.geojson")
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+        L.geoJSON(data, {
+            pointToLayer: function(point, latlng) {
+                return L.marker(latlng);
+                //return L.circle(latlng, 1000);
+            },
+            onEachFeature: function(feature, layer) {
+                layer.bindPopup(feature.properties.NOM_GARE);
+            }
+        })
+        .addTo(map);
+});
+
+fetch("tunnels.geojson")
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+        L.geoJSON(data, {style: tunnel_style}).addTo(map);
+});
+&lt;/script&gt;
+]
+]
  
 ---
 class: inverse, center, middle, activity
 # Activity 2: Create a CFL WebMap using Mapbox
 
-.pl[
+.pull-left[
 See the [resources](rsrcs/l4/lesson4.zip) for this week.
 
 Use the CFL GeoJSON data to display Luxembourg's:
@@ -145,13 +252,18 @@ Use the CFL GeoJSON data to display Luxembourg's:
 - Train stations
 - Train tunnels
 
-Use the Mapbox basemap.
+Use the Mapbox basemap:
+- Update the tileLayer source `L.tileLayer(MAPBOX_TILE_URL, {...})`
+- Update the token `accessToken: YOUR_TOKEN`
+- Update the map id `id: 'mapbox/streets-v11'`
 ]
 
 .pr[
 The easiest option is to use the [async method](Lesson3.html) for loading multiple GeoJSON data sets to your WebMap.
 
 **Remember this will only function when on your server**
+
+See the previous slides for additional information.
 ]
 
 ---
