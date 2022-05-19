@@ -39,3 +39,12 @@ This course provides a theoretical and practical introduction to webmaps broken 
   - R Leaflet maps
   - Mapbox base map
   - Final assignment
+
+## Updates for next year
+In lesson 1
+- Explain browser caches and Control-Shift-Reload 
+- Create exercise that teaches and tests relative and absolute file paths
+- Teach sync and async concept (particularly with tile loading)
+
+In lesson 3 or 4
+- Add ability to show/hide layers
