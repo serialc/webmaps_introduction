@@ -4,7 +4,6 @@
     <title>Introduction to WebMaps</title>
     <meta charset="utf-8" />
     <meta name="author" content="Dr. Cyrille Médard de Chardon" />
-    <meta name="date" content="2022-04-01" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
@@ -18,11 +17,21 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Introduction to WebMaps
+]
+.subtitle[
 ## Lesson 1: Theory, practices and required skills
+]
+.author[
 ### Dr. <strong>Cyrille Médard de Chardon</strong>
+]
+.institute[
 ### <br>University of Luxembourg &amp;<br>Luxembourg Institute of Socio-Economic Research (LISER)
-### <br>April 1, 2022
+]
+.date[
+### <br>Last update April 24, 2023
+]
 
 ---
 
@@ -86,7 +95,7 @@ This course explains the underlying functioning of WebMaps and teaches you how t
 
 Today we will focus on understanding the dependencies of WebMaps, how and what they need to function. As well as what you need to know and understand to create them.
 
-We will start next week with 
+We will start next week with actually making WebMaps. 
 
 ---
 
@@ -94,14 +103,14 @@ We will start next week with
 
 .pl[
 Each week you will be given tasks.
-- They are due before the start of the next lesson
-- Depending on our schedule this may mean you have one-two weeks to complete the activities.
+- They are due before the start of the next lesson.
+- Depending on our schedule this may mean you have more than one week to complete the activities.
 ]
 
 .pr[
-- Each assignment will have points
-- Points are summed across all four lessons
-- Total percentage contributes to **part** of your overall grade in the course.
+- Each assignment will have points.
+- Points are summed across all four lessons.
+- Your total percentage contributes to **part** of your overall grade for this course.
 ]
 
 ---
@@ -109,7 +118,7 @@ Each week you will be given tasks.
 class: inverse, middle, activity
 # What is a GIS?
 
-## In pairs determine four or more components of a GIS.
+## In pairs/groups determine four or more components of a GIS.
 
 ### You have one minute.
 
@@ -119,12 +128,14 @@ class: inverse, middle, activity
 ## Definitions will vary, but ...
 
 .pl[
-Typically a GIS consists of 4 hardware and software components:
+Typically a GIS consists of 4 hardware and software components*:
 
 - hardware (PC/server),
 - software,
 - data (geographic/spatial), and
 - methods (input, manipulation, algorithms, management, query and analysis, or visualization)
+
+&lt;small&gt;*The ubiquity of computers now makes the hardware requirement a bit obvious and this list dated.&lt;/small&gt;
 ]
 
 .pr[
@@ -136,11 +147,9 @@ GIS software is typically defined as affording or allowing:
 - a graphical user interface (GUI) for easy access to tools
 ]
 
-*The ubiquity of computers now makes the hardware requirement a bit obvious and this list dated.
 
 ---
-# WebGIS or WebMaps
-
+# WebGIS or 
 .pull-left[
 .tl[
 The definition of a WebGIS is vague. esri used to define it in very **technical terms**:
@@ -164,29 +173,28 @@ There exists within the above definition a wide spectrum of possibility.
 ---
 # WebGIS and WebMap differences?
 
-
 .pull-left[
 
-Within a spectrum of map data:
+Within a &lt;b&gt;&lt;span style="color:red"&gt;s&lt;/span&gt;&lt;span style="color:orange"&gt;p&lt;/span&gt;&lt;span style="color:yellow"&gt;e&lt;/span&gt;&lt;span style="color:green"&gt;c&lt;/span&gt;&lt;span style="color:blue"&gt;t&lt;/span&gt;&lt;span style="color:indigo"&gt;r&lt;/span&gt;&lt;span style="color:violet"&gt;u&lt;/span&gt;&lt;span style="color:red"&gt;m&lt;/span&gt;&lt;/b&gt; of web-based maps:
 
-- there are static maps, those you generate in ArcMap and export as PDF or PNG. While these can be embedded in HTML online or distributed by PDFs they are constrained to the area, scale and features you have selected. These **fulfil many tasks perfectly** where no further affordances are necessary.
+- there are **static maps/images**, those you generate in ArcMap and export as PDF or PNG. While these can be embedded in HTML online or distributed by PDFs they are constrained to the area, scale and features you have selected. These **fulfil many tasks perfectly** where no further affordances are necessary.
 
-- WebMaps provide some level of interaction or even animation, these have become extremely common and practical for providing large data sets that cover large areas with detail where individuals can explore small portions of the data at large scale (small areas). **WebMaps are interactive, allow scaling, panning, and querying.**
+- **WebMaps** provide some level of interaction or even animation, these have become extremely common and practical for providing large data sets that cover large areas with detail where individuals can explore small portions of the data at large scale (small areas). **WebMaps are interactive, allow scaling, panning, and querying.**
 ]
 
 .pull-right[
-- WebGIS are typically built on the same framework as WebMaps but allow some additional operations present in a desktop GIS, such as modifying the data. Note however that that a WebGIS/Map also contain features exclusive to a desktop GIS.
-- A desktop GIS, while it may appear as the most powerful way to view and manipulate data, it has certain limitations, such as accessibility.
-- WebGIS/Maps provide opportunities that are difficult to implement well or as desired from a desktop GIS. With WebGIS/Maps it is easier to create linkages, customization, real-time collaboration, crowd-sourcing - while a GIS is more suitable for geoprocessing, digitizing, volumetric analysis and many other things.
+- **WebGIS** are typically built on the same framework as WebMaps but allow some additional operations present in a desktop GIS, such as modifying the data. Note however that that a WebGIS/Map also contain features **exclusive** to a desktop GIS.
+- A desktop GIS, while it may appear as the most powerful way to view and manipulate data, it has certain limitations.
+- WebGIS/Maps provide opportunities that are difficult to implement well or as desired from a desktop GIS. With WebGIS/Maps it is easier to create linkages, customization, real-time collaboration, crowd-sourcing, while a desktop GIS is the simplest for geoprocessing, digitizing, volumetric analysis and many other things that don't necessitate repetition or automation.
 ]
 
 ---
 # GIS, WebGIS and WebMap
 .pl[There isn’t a consensus exactly. So let’s define our own.
 
-**WebMaps are simple interactive maps allowing you to better explore data than with a static map through interactive panning, scaling, and sometimes querying, with readily or easily available base maps.**
+**WebMaps are** simple interactive maps allowing you to better explore data than with a static map through interactive panning, scaling, and sometimes querying, with readily or easily available base maps.
 
-**A WebGIS additionally allows you to change data.**
+**A WebGIS additionally allows you to create or change data.**
 ]
 
 .pr[
@@ -233,8 +241,10 @@ Try making changes to the:
 
 .pull-right[
 .w75[![A WebMap?](imgs/l1/mapserv.jpeg)]
-- Interaction is difficult and requires expert knowledge (e.g., lat/lng, image w/h distortion)
-- While this interface is clunky, there’s still a lot going on in the background on the server. We’ll call what happens on the server the **back-end stack**.
+- Interaction is difficult and requires expert knowledge (e.g., lat/lng, image w/h distortion). Nothing happens in the browser besides displaying the map.
+- While this interface is clunky, there’s still a lot going on in the background on the server.
+- We will call what happens on the server the **back-end stack**.
+- What you can do within the browser that can take place without an internet connection, is the **front-end**.
 
 .source[https://www.gebco.net/]
 ]
@@ -254,17 +264,17 @@ We've already seen in the earlier exercise how a server has generated an image b
 ]
 
 .pull-right[
-**Complete the following in pairs.**
+**Complete the following in pairs/groups.**
 
 [Map/activity 1](http://openwhatevermap.xyz/#3/66.93/14.33) - Three minutes
-- What are you conclusions regarding how data is structurally presented to the user?
+- What are your conclusions regarding how data is structured?
 
 For the next exercise watch the map as it loads.
 
 [Map/activity 2](http://www.arcgis.com/apps/View/index.html?appid=6f53ca5e2b8c480888e96e5f71929c08) - Three minutes
-- Describe what components you see as it loads
-- What data does the map contain/present
-- What formats (do remember data types from GIS?)
+- What components (layers?) does it load?
+- What data does the map contain/present?
+- What data types? (do remember data types from GIS?)
 ]
 
 ---
@@ -300,7 +310,7 @@ Tiled WFS&lt;br&gt;
 - Note that tile generation can either be done ahead of time or on the fly but that storage becomes and issue as you must save each tile for each resolution.
 
 - The internet has changed, asynchronous vs synchronous (web2.0 in the 2000s)
-- Asynchronicity requires a proper server that processes requests.
+- Asynchronism requires a **web server** that processes HTTP(S) requests.
 
 **No one service is not best for all situations**. Some data is better served in raster format, using tiled images, while others can increase speed and reduce bandwidth with vector formats.
 WebMaps can contain combinations of mapping services.
@@ -311,14 +321,14 @@ WebMaps can contain combinations of mapping services.
 .pl[
 The map services that provide the data are only one (complex) part of the WebMap set of components and data flow. WebMaps depends on a stack of components and sequences of interactions between them.
 
-WebMaps can be broken down into **two** physically separated components - the backend/server and frontend/client:
+WebMaps can be broken down into **two** physically separated components - the backend/server (somewhere on the internet) and frontend/client (your browser):
 
 ]
 
 .pull-right[
-- The backend is a data service you can query to retrieve data from. Queries are processed to specify the desired data, gathered and formatted for delivery on the server somewhere on the internet. The first example, [the WMS](), is a good representation of the query, the URL, and the resulting data.
+- The **backend** is a data service you can query to retrieve data from, or send data to. Queries are processed to specify the desired data, gathered and formatted for delivery on the server somewhere on the internet. The first example, [the WMS](), is a good representation of the query, the URL, and the resulting data.
 
-- The frontend provides an interactive user interface that translates interactions (mouse zoom &amp; pan) into server requests and displays the results. This happens on your computer/device's app or browser. This interaction is provided by a framework or library that treats all content as equal, regardless of whether it is georeferenced. For example the library can be used to [explore a painting](https://www.haltadefinizione.com/en/viewer/work/selfportrait-umberto-boccioni).
+- The **frontend** provides an interactive user interface that translates interactions (mouse zoom &amp; pan) into server requests (from the backend) and displays the results. This happens on your computer/device's app or browser. This interaction is provided by a framework or library that treats all content as equal, regardless of whether it is georeferenced (can be used to [explore a painting](https://www.haltadefinizione.com/en/viewer/work/selfportrait-umberto-boccioni)).
 ]
 
 ---
@@ -327,6 +337,7 @@ WebMaps can be broken down into **two** physically separated components - the ba
 .w100[![The stack](imgs/l1/webmap_stack.svg)]
 
 ???
+
 ## How the backend functions
 
 .pl[
@@ -347,9 +358,9 @@ Any request that requires geographic features stored in a database will have to 
 
 .pl[
   .pr[.ms[![Leaflet introductory map](imgs/l1/leaflet_intro.png)]]
-We’ll focus on the process of browsers retrieving and displaying WebMap content.
+Focusing on the process of browsers retrieving and displaying WebMap content.
 
-- Let’s use the [Leaflet Library's introductory example](https://leafletjs.com/examples/quick-start/example.html) ([temp link](https://leafletjs.com/SlavaUkraini/examples/quick-start/example.html)) to explore how browsers, web-content and WebMaps interoperate.
+- Let’s use the [Leaflet Library's introductory example](https://leafletjs.com/examples/quick-start/example.html) to explore how browsers, web-content and WebMaps interoperate.
 - On visiting the site, a request is made to the server to retrieve the HTML page containing textual content and its dependency data and code: formatting/layout/CSS, mapping library/framework, JavaScript/JS, &amp; image tiles.
 ]
 
@@ -409,7 +420,8 @@ Within a browser multiple components are combined:
 - Tiles (WMS) or features (WFS) providing the map backgrounds or content
 
 ### Review question
-Why would the map provider (MapBox, Google, OSM) use tiled WMS or WFS? Why would you choose one over the other?
+Why would the map provider (MapBox, Google, OSM) use tiled WMS or WFS?  
+Why would you choose one over the other?
 ]
 
 ---
@@ -431,14 +443,14 @@ We will now cover the basics of:
 ]
 
 .pr[
-There is an enormous amounts of free, good, and accessible information regarding all these concepts on-line.
+There is an enormous amounts of free, good, and accessible information regarding all these concepts online.
 
 I will provide an introduction and we will work with these regularly for the next month.
 
 A few resources and good practices will be a huge help:
 - Your IDE (Notepad++ or Visual Studio Code)
-- Keep everything very organized!
-- The browser Web Developer Tools
+- **Keep everything very organized!**
+- The browser Web Developer Tools (F12)
 - [Google](https://google.com) is your friend.
 ]
 
@@ -461,7 +473,7 @@ But if you leave the envelop at your friend’s house, it won’t reach the corr
 ]
 
 .pr[
-In order to work with HTML, CSS, JS and data we need to understand how they are linked.
+In order to work with HTML, CSS, JS and data we need to understand how resources/files are linked.
 
 This is typically done through ‘paths’ that are either:
 - relative, or
@@ -474,26 +486,59 @@ This issue has likely been problematic for you when using a GIS at some point.
 # File paths examples
 
 .pull-left[
-.pr[![File tree](imgs/l1/filetree.png)]
 ## Relative Paths
-- index.html
+Given the file structure shown **to the right**, if I 'point' to the following resources in a file using the relative paths below, **what is the working directory or source file?**:
 - css/site.css
 - js/leaflet.js
 - ../data/poi.json
-- **Where am I?**
 
-## Absolute Paths
+
+## Absolute Path examples
 - https://wwwen.uni.lu/
-- https://wwwen.uni.lu/studies/fhse/master_in_geography_and_spatial_planning/programme
 - https://wwwen.uni.lu/research/fhse/dgeo
+- C:\Projects\MAGEO\WebGIS\Lab1
+- /home/cyrille/public_html/webmap
 ]
 
 .pr[
-## Question
-How are your MAGEO course files organized?
 
-Come to the board and draw your generalized folder and files tree.
+![File tree](imgs/l1/filetree.png)
+
+## Question
+How are your course files organized?
 ]
+
+---
+# Developer Tools
+
+.pull-left[
+Most browsers have developer tools. These can be enabled in a variety of ways depending on your computer and browser. Try the following:
+
+- PC/Linux - `Ctrl+Shift+I`
+- Mac - `Alt+Command+I`
+- F12
+- Tools -&gt; Web Developer Tools* 
+
+![Developer tools](imgs/l1/devtools.png)
+Firefox developer tools.
+]
+
+.pull-right[
+The are four tabs that are of importance for us:
+
+- The **Pick** tab/button allows you to focus in individual elements.
+- The **Inspector/Elements** tab allow you to browse the HTML source code and understand how elements are constructed.
+- The **Console** tab is where JavaScript information is provided, such as errors, warnings, or just text to help the developer debug/check their code.
+- The **Network** tab shows us what/who the browser is communicating with and what it is sending and receiving (or failed receiving).
+
+![Developer tools](imgs/l1/devtoolschrome.png)
+Chrome developer tools.
+]
+
+???
+
+* Or some similar combination of menus.
+
 
 ---
 class: inverse, center, middle, activity
@@ -508,7 +553,37 @@ Working with a partner:
 
 Repair the paths/folders so the Leaflet example from before functions.
 
-*Follow the bread crumbs starting from the index.html file*
+*Follow the bread crumbs starting from the **index.html** file*
+
+---
+class: inverse, center, middle, activity
+
+# Answers
+
+.pull-left[
+Note that debugging a website on a proper server (http://localhost/~cyrille/exercise1/) is much easier than an html file on your local machine (file:///home/cyrille/Downloads/ex1/exercise1/index.html).
+
+Developer console when opening index.html on a server from a browser:
+
+![Debug console](imgs/l1/devcon_debug.png)
+]
+
+.pull-right[
+Regardless, looking through the index file it should be clear there's a mismatch between the actual files provided and the used **relative** paths in index.html.
+
+There are a few things to fix.
+- The path to leaflet.js is wrong
+- The path to leaflet.css is wrong
+
+![Debug console](imgs/l1/devcon_debug2.png)
+- More complex is the missing marker on the map that requires fixing the path within the **leaflet.css** to **marker-icon.png**.
+- CSS paths are relative to the CSS file.
+]
+
+---
+# The HTML, CSS, JS Trinity
+
+.w100[![trinity](imgs/l1/trinity.svg)]
 
 ---
 # Introduction to HTML
@@ -537,32 +612,40 @@ Different tags provide certain functionalities by default.
 ]
 
 .pull-right[
-Tags can contains attributes. In this case the attributes are named **class**, **id** with values **pop**, **map**:
+Tags can contains attributes. In this case the **attributes** are named **class**, **id** with values **pop**, **map**:
 
 ```html
 &lt;p class='pop'&gt;Hi&lt;/p&gt;
 &lt;div id='map'&gt;&lt;/div&gt;
 ```
+There are many possible attribute types.
+
 &lt;hr&gt;
 
 In the above case we would say the paragraph **has** the class 'pop' rather than speak of attributes and values.
 
 Similarly, the div tag **has** the id 'map'.
 
-**Note that classes are meant to be applied to MANY elements, but id names should be UNIQUE.**
+&lt;hr&gt;
+
+**Note that**:  
+=&gt; **classes** are meant to be applied to MANY elements  
+=&gt; **ids** should be UNIQUE.
 ]
 
 ???
 
 HTML links to CSS, JavaScript, images, libraries, and other items. Typically it contains the textual data/content. HTML links to other resources, which may link to further resources downloaded when the page is loaded. Additional data can be asynchronously loaded - such as the WebMap tiles as you pan around.
 
-**If you want to make a WebMap that means you want to put content on-line on a website.**
+**If you want to make a WebMap that means you want to put content online on a website.**
 
 ---
 # HTML Example
 
 .pl[
 Let's look at a larger HTML example:
+
+![example html](imgs/l1/exhtml.png)
 ]
 
 .pull-right[.ts[
@@ -573,23 +656,28 @@ Let's look at a larger HTML example:
   &lt;!-- I am a comment. Browsers ignore me --&gt;
   &lt;head&gt;
     &lt;meta charset="utf-8"&gt;
-    &lt;title&gt;WebGIS maps&lt;/title&gt;
+    &lt;title&gt;About me&lt;/title&gt;
   &lt;/head&gt;
 
   &lt;!-- Start of the body, where the content should be placed --&gt;
   &lt;body&gt;
-    &lt;h1&gt;My WebMaps&lt;/h1&gt;
+    &lt;h1&gt;About me&lt;/h1&gt;
   
     &lt;h2&gt;Me&lt;/h2&gt;
-    &lt;img src="images/me.jpg"&gt;
+    &lt;img class="askew" src="images/me.jpg"&gt;
   
-    &lt;h2&gt;Maps&lt;/h2&gt;
-    &lt;p&gt;Here are some WebMaps I made:&lt;/p&gt;
+    &lt;h2&gt;My pet&lt;/h2&gt;
+    &lt;img class="border" src="images/me.jpg"&gt;
+  
+    &lt;div id="map"&gt;&lt;/div&gt;
+  
+    &lt;h2&gt;My hobbies&lt;/h2&gt;
     &lt;ul&gt;
       &lt;li&gt;
         &lt;!-- This is a link, using the 'a' tag --&gt;
-        &lt;a href="pages/first.html"&gt;Map of water sampling&lt;/a&gt;
+        &lt;a href="pages/rockclimbing.html"&gt;Map of water sampling&lt;/a&gt;
       &lt;/li&gt;
+      &lt;li&gt;Ice skating&lt;/li&gt;
       &lt;!-- Add other links and descriptions here using the above as an example --&gt;
     &lt;/ul&gt;
   &lt;/body&gt;
@@ -621,36 +709,58 @@ The benefits of CSS are clear. See the [CSS Zen Garden](http://www.csszengarden.
 # CSS
  
 .pull-left[
-CSS can either be placed in an independent file or within the HTML file.
-- Link to the CSS file within the existing `&lt;head&gt;&lt;/head&gt;` section:
+CSS can either be placed in an **independent file** or **within the HTML file**.
+
+To have the CSS in a separate file link to the CSS file within the existing `&lt;head&gt;&lt;/head&gt;` section:
+
+.ts[
 
 ```html
-&lt;link href="css/webmap.css" rel="stylesheet" type="text/css"/&gt;
+&lt;head&gt;
+&lt;link href="css/webmap.css" rel="stylesheet" type="text/css"&gt;
+&lt;/head&gt;
 ```
 ]
 
+Otherwise, add it in the HTML within a set of `&lt;script&gt;&lt;/script&gt;` tags:
+.ts[
+
+```html
+&lt;head&gt;
+&lt;script&gt;
+a {
+  text-decoration: none;
+  color: purple;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+```
+]]
+
+
 .pull-right[
-- Add it in the HTML within a set of `&lt;script&gt;&lt;/script&gt;` tags:
+Larger CSS example:
+.ts[
 
 ```css
-/* CSS comments are different than HTML */
-/* The 'a' points/links to an HTML elements of type 'a' */
+/* CSS comments are different than HTML! */
+/* The 'a' refers to an HTML tag of type 'a' */
 a {
   text-decoration: none;
 }
-/* The '#' points/links to an HTML element with a an id of 'map' */
+/* The '#' refers to an HTML element with id 'map' */
 #map { 
   position:absolute;
   top:0; 
   width:100%
 }
-/* The '.' points/links to all HTML elements with a class of 'pop' */
+/* The '.' refers to all HTML elements class 'pop' */
 .pop {
     font-size: 1.2em;
     font-weight: bold;
 }
 ```
-]
+]]
 
 ???
 
@@ -670,13 +780,16 @@ JavaScript is a scripting programming language (doesn't need further processing 
 It’s powerful but very easy to create confounding errors/unexpected results.
 
 JavaScript is used in this course to to 'create' maps, load content and handle interaction/requests.
-Most of the complexity is hidden using libraries and we will  mainly be doing configuration.
+Most of the complexity is hidden using libraries and **we will mainly be doing configuration**.
 ]
 
 .pull-right[
 Create a variable/container and label it with:
-- `let` or `var`
+- `let` (or `var`)
 
+Let's create a WebMap:
+
+.ts[
 
 ```js
 let map = L.map('map').setView([51.505, -0.09], 13);
@@ -710,7 +823,7 @@ let options = {
 let tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
   options).addTo(map);
 &lt;/script&gt;
-
+]
 ]
 
 ???
@@ -723,7 +836,7 @@ JavaScript is quite readable, try and figure out what people are doing, copy and
 .pl[
 While some web applications allow uploading of esri shapefiles and tables, most WebMaps require data in JSON/GeoJSON format or structured/table text format (e.g., CSV, TSV, etc.).
 
-We'll only work with JSON, GeoJSON, and structure data files (e.g., CSV) of these.
+We will only work with JSON, GeoJSON, and structure data files (e.g., CSV).
 ]
 
 .pull-right[
@@ -769,9 +882,11 @@ JSON is a very human and machine readable way of storing many data types that ca
 .pull-left[
 Don’t be too worried about memorizing all this now. Focus on being able to understand it. You can always replicate by copying and modifying.
 
-**The biggest greatest importance is understanding the linkage between folder/files and how they relate to html, css, js, and other data files.**
+**The most important is understanding the linkage between folder/files and how they relate to html, css, js, and other data files.**
 
 While IDEs can be helpful, there are tools built into web browsers to better **understand** how things function and what may be going wrong.
+
+**The developer console is your best friend!**
 
 You will encounter problems. Without these (debugging) tools it is difficult to understand where the problem lies.
 ]
@@ -782,42 +897,11 @@ You will encounter problems. Without these (debugging) tools it is difficult to 
 ]
 
 ---
-# Developer Tools
-
-.pull-left[
-Most browsers have developer tools. These can be enabled in a variety of ways depending on your computer and browser. Try the following:
-
-- PC/Linux - `Ctrl+Shift+I`
-- Mac - `Alt+Command+I`
-- F12
-- Tools -&gt; Web Developer Tools* 
-
-![Developer tools](imgs/l1/devtools.png)
-Firefox developer tools.
-]
-
-.pull-right[
-The are four tabs that are of importance for us:
-
-- The **Pick** tab/button allows you to focus in individual elements.
-- The **Inspector/Elements** tab allow you to browse the HTML source code and understand how elements are constructed.
-- The **Console** tab is where JavaScript information is provided, such as errors, warnings, or just text to help the developer debug/check their code.
-- The **Network** tab shows us what/who the browser is communicating with and what it is sending and receiving (or failed receiving).
-
-![Developer tools](imgs/l1/devtoolschrome.png)
-Chrome developer tools.
-]
-
-???
-
-* Or some similar combination of menus.
-
----
 # Revisited
 
 .pull-left[
 ## Leaflet Example
-Let’s reconstruct the how the [Leaflet example site](https://leafletjs.com/SlavaUkraini/examples/quick-start/example.html) generates a WebMap by using the Developer tools.
+Let’s reconstruct how the [Leaflet example site](https://leafletjs.com/SlavaUkraini/examples/quick-start/example.html) generates a WebMap by using the Developer tools.
 
 - Open the Developer tools
 - Look at the Network tab, you will need to refresh the page to see what/how the page loads.
@@ -921,7 +1005,7 @@ Feel free to use either or both as you wish, however I believe only **Notepad++*
 
 3. Browse the other sections of the [MDN site](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web), perhaps related to HTML and CSS.
 
-4. Using what you've learned and the code examples given in [this presentation](#26) , create a very simple website, it doesn't need to be pretty, provind some superficial information about yourself and, if you wish, including a small picture of yourself, pet, or something else. Zip up your site. Don't share any personal information.
+4. Using what you've learned and the code examples given in [this presentation](#29) , create a very simple website, it doesn't need to be pretty, provide some superficial information about yourself and, if you wish, include a small picture/caricature of yourself, pet, or something else. Zip up your site files. Don't share any personal information.
 
 5. Email the results of steps 1 &amp; 4 above to me **before** next week's lesson.
 ]
@@ -930,7 +1014,12 @@ Feel free to use either or both as you wish, however I believe only **Notepad++*
 
 # Questions?
 
-## [Contact me](mailto:cyrille.mdc@liser.lu) if you have any questions.
+## [Contact me](mailto:cyrille.medarddechardon@uni.lu) if you have any questions.
+
+cyrille.medarddechardon@uni.lu
+
+## These slides are online
+https://serialc.github.io/webmaps_introduction/
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -980,6 +1069,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
