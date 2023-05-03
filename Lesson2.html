@@ -106,13 +106,29 @@ Last week had some technical background taking time last week, but it’s necess
 
 ---
 class: inverse, center, middle, activity
-# Activity 1
+# Demonstration
 
-## Making your landing page
+## Two HTML files
 .pl[
-Note the importance of the index.html file:
-- Browsers look for it
+A folder, named `test` has two html files in:
+- index.html
+- info.html
+
+When I use the browser to navigate to the **folder named `test`**, what do you expect to happen?
+
+What actually happens, and why?
+
 ]
+
+???
+
+SSH onto the server, into my user account's public_html and:
+- create a folder named `test`
+- create a file named `index.html` with the content
+  - I'm index.html
+- create a file named `info.html` with the content
+  - I'm info.html
+- Add links between the two files
 
 ---
 
@@ -139,11 +155,21 @@ Download the [zip file](rsrcs/l2/lesson2.zip) for this lesson.
 
 ---
 class: inverse, center, middle, activity
+# Activity 1
+
+## Making your landing page
+.pl[
+Note the importance of the index.html file:
+- Browsers look for it
+]
+
+---
+class: inverse, center, middle, activity
 # Uploading to a server
 
 .pl[
 
-**[Our server for this course: 167.99.221.7](http://167.99.221.7/)**
+**[Our server for this course: http://167.71.41.80](http://http://167.71.41.80/)**
 
 I will individually give you your passwords now
 ]
@@ -156,17 +182,26 @@ We need to learn how to put our content on-line.
 
 Placing content on-line requires having a computer permanently on and connected to the internet that is running software that can respond to requests for information, what we call a **server**.
 
-I have spun up a temporary server using **DigitalOcean**. It costs about 5 EUR per month. Cheaper options exist (e.g., 20 EUR/year).
+I have spun up a temporary server using **DigitalOcean**. It costs about 7 EUR per month. Cheaper options exist (e.g., 20 EUR/year).
 
+---
+# Working on a server
+
+.tl[
 A note on your using this server.
-- **Always keep a good copy of your data on your local machine**.
-    1. Work on things on your local machine
-    2. Get it working
-    3. Upload to the server.
+
+**Always keep a good copy of your data on your local machine**.
+
+1. Work on things on your local machine
+2. Get it working (as much as possible)
+3. Upload to the server.
+
 - Don't upload very large files, such as videos to the server.
 - Don't use the server for any content not related to this course.
 
 This server will not be active beyond the final assignment submission deadline.
+
+]
 
 ---
 # How to upload - Secure FTP
@@ -526,49 +561,57 @@ Beyond just updating these two maps, you must update your main index.html file t
 ---
 # Configuring a Ubuntu 20.04LTS Webserver
 
-.pull-left[
+.pull-left[.ts[
 ### Install and configure Apache2
 Log-in as root:
 
-```
+
+```bash
 apt install apache2
 apache2 -version
-ufw app list
-ufw allow ‘Apache’
+
+# Configure firewall
+ufw allow 'Apache'
 ufw allow 'OpenSSH'
 ufw status
-
-# if still inactive try
+# activate firewall
 ufw enable
+ufw status # it show have Apache and OpenSSH enabled
 
-# check website: http://167.99.221.7/
+# check website in browser
 # Note we are using http and not https
+
+# update the main landing page
+vim /var/www/html/index.html
+
+# use newusers (for usage see: man newusers) to create users from file with following format:
+# pw_name:pw_passwd:pw_uid:pw_gid:pw_gecos:pw_dir:pw_shell
+# cyrille:8t3n997zqb::student::/home/cyrille:
+```
+]]
+
+.pull-right[.ts[
+### Users, pages, and sftp
+
+```bash
+# generate users from file contents
+newusers students_list
 
 # Enable user directories
 a2enmod userdir
 systemctl restart apache2
-```
-]
 
-.pull-right[.ts[
-### Create users and enable websites
-```
-# use newusers (for usage see: man newusers) to create users from file
-# pw_name:pw_passwd:pw_uid:pw_gid:pw_gecos:pw_dir:pw_shell
-# cyrille:8t3n997zqb::student::/home/cyrille:
-newusers students_list
+# make user dirs subdirectories 'visible' to Apache
+chmod 755 /home/*
 
-# update the common page
-vim /var/www/html/index.html
-
-# Enable ftp
+# Enable sftp for the user group 'students' in 
 # From /etc/ssh/sshd_config comment out
 Subsystem       sftp    /usr/libexec/openssh/sftp-server
 # add
 Subsystem       sftp    internal-sftp
 
-# and at the bottom
-Match Group students
+# and add at the bottom
+Match Group students # if doesn't work use 'User bob,joe,jim'
 ChrootDirectory /home
 X11Forwarding no
 AllowTcpForwarding no
@@ -576,9 +619,8 @@ AllowAgentForwarding no
 ForceCommand internal-sftp
 PasswordAuthentication yes
 
-# restart the service
+# then restart the service
 /etc/init.d/ssh restart
-
 ```
 ]]
     </textarea>
