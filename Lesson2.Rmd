@@ -95,12 +95,16 @@ Last week had some technical background taking time last week, but it’s necess
 ---
 # Agenda for Lesson 2
 
-.tl[
+.pl[
 1. Making and understanding the index file
 2. Uploading your web page from last week to the server
 3. Creating your first WebMap (Leaflet)
 4. Creating a WebMap of flight paths using QGIS
 5. Uploading more WebMaps to your server
+]
+
+.pr[
+![Lost lego people](imgs/l2/lost.jpg)
 ]
 
 ---
@@ -186,7 +190,7 @@ I have spun up a temporary server using **DigitalOcean**. It costs about 7 EUR p
 ---
 # Working on a server
 
-.tl[
+.pl[
 A note on your using this server.
 
 **Always keep a good copy of your data on your local machine**.
@@ -199,7 +203,27 @@ A note on your using this server.
 - Don't use the server for any content not related to this course.
 
 This server will not be active beyond the final assignment submission deadline.
+]
 
+.pr[
+.w66[![Your website folder is your holy grail](imgs/l2/grail.jpg)]
+]
+
+---
+# URLs vs Server file paths
+
+.pl[
+We saw last week how paths and relative paths 'match'.
+
+While this relationship is maintained once you put data on the server, where your 'root' webpath and URL meet can be arbitrary.
+
+However, this is typically standardized. If want an html file to appear at your URL: `http://167.71.41.80/~cyrille` then you must place your `index.html` file at the location `/home/cyrille/public_html/index.html`.
+
+You may have to create the `public_html` directory and set permissions to `755`.
+]
+
+.pr[
+.w66[![FileZilla permissions](imgs/l2/755.png)]
 ]
 
 ---
@@ -208,11 +232,16 @@ This server will not be active beyond the final assignment submission deadline.
 .pl[
 There are various methods and tools we can use to upload.
 
-A common introductory method to move files between your computer and the server is FTP (File transfer protocol). We don't use this any more as it's unsafe.
+A common introductory method to move files between your computer and the server is **FTP** (File transfer protocol).
+
+*Don't use this as it's insecure*.
 
 **We now use SFTP** (Secure FTP).
 
-We will use SFTP software called [FileZilla](https://filezilla-project.org/download.php?type=client), a good, free, and cross-platform **(S)FTP client**.
+We will use software called [FileZilla](https://filezilla-project.org/download.php?type=client), a good, free, and cross-platform **(S)FTP client**.  
+
+We are using FileZilla Client (not FileZilla Server)
+
 ]
 
 .pr[
@@ -223,6 +252,8 @@ We will use SFTP software called [FileZilla](https://filezilla-project.org/downl
 ???
 
 We might talk about using FTP generally but we always mean SFTP.
+
+If you download the FileZilla, you want the Client, not the FileZilla Server!
 
 ---
 # FileZilla
@@ -256,7 +287,7 @@ To connect to the server, configure FileZilla by opening the Site Manager:
 - On the bottom left click **New site** button and give it a name (e.g., WebMaps course)
 - On the right specify the:
   - Protocol: SFTP
-  - Host: 167.99.221.7
+  - Host: 167.71.41.80
   - User: [your username]
   - Password: [your password]
 - Click **Connect**
@@ -280,16 +311,16 @@ an **aboutme.html** page.
 # Creating our first WebMap
 
 .pl[
-We will now create our first WebMap using the [Leaflet library](https://leafletjs.com/) ([alt](https://leafletjs.com/SlavaUkraini/)).
+We will now create our first WebMap using the [Leaflet library](https://leafletjs.com/).
 
-The [Quick Start Guide](https://leafletjs.com/SlavaUkraini/examples/quick-start/) assumes we have some knowledge of HTML.
+The [Quick Start Guide](https://leafletjs.com/examples/quick-start/) assumes we have some knowledge of HTML.
 - Look in the [zip resources](rsrcs/l2/lesson2.zip) provided for today.
 - Duplicate the `resources_wk2/website/ pages/template.html` page and rename it `leaflet_example.html` (or something clear) in the same folder.
 - Open `leaflet_example.html` in your code editor of choice (e.g., notepad)
 ]
 
 .pr[
-Follow the instructions on the Quick Start Guide and integrate the resources (CSS, JS, HTML) into your file.
+Follow the instructions on the [Quick Start Guide](https://leafletjs.com/examples/quick-start/) and integrate the resources (CSS, JS, HTML) into your file.
 - You must link **two files** and add some HTML, JS, and CSS as well.
 - As we covered last week, I strongly recommend you keep the CSS and JS in separate files from the HTML for simplicity for now.
 ]
@@ -392,10 +423,11 @@ You will follow the [directions](https://leafletjs.com/SlavaUkraini/examples/qui
 - [Working with popups](https://leafletjs.com/SlavaUkraini/examples/quick-start/#working-with-popups)
 - Do not do the last section on Dealing with events
 
-### Result?
+### Result
 
-.w50[![Grey WebMap](imgs/l2/grey_webmap.png)]
-
+After all that work...  
+.w50[![Grey WebMap](imgs/l2/grey_webmap.png)]  
+*What's the problem?*
 ]
 
 ???
@@ -410,13 +442,15 @@ Explain why this is doomed to failure.
 .pull-left[
 As you've seen from the previous exercise, the tiles you are using belong to Mapbox, created from OSM data.
 
-As we will not be generating our own tiles in this course **we need to use someone's image tiles**. Mapbox's business is providing tools and resources, such as these tiles.
+As we will not be generating our own tiles in this course **we need to use someone's image tiles\***. Mapbox's business is providing tools and resources, such as these tiles.
 
 There are many sources of map tiles, many of which you must register and retrieve a `key` to be able to use.
 
 If you exceed certain usage limits you will be cut-off and required to pay to continue.
 
 Unless you have a popular site or WebMap you're unlikely to reach the non-free tiers from Mapbox or other services.
+
+.ts[\* We could make our own tiles, but that's beyond this course's scope.]
 ]
 
 .pull-right[
@@ -425,8 +459,8 @@ Many alternative map [sources](http://openwhatevermap.xyz) exists to Mapbox:
 
 .w50[[![WebMap containing various tile sources](imgs/l2/xyztiles.png)](http://openwhatevermap.xyz)]
 
-Either update your `L.tileLayer` source (and attribution!) to an alternative source or register with Mapbox and update the `accessToken`:
-
+**Either** update your `L.tileLayer` source (and attribution!) to an alternative source **or** register with Mapbox and update the `accessToken`.  
+Some alternative tile layers:  
 .ts[
 - http://tile.openstreetmap.org/{z}/{x}/{y}.png
 - http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png
@@ -449,9 +483,9 @@ class: inverse, center, middle, activity
 
 .pl[
 ## Complete the Leaflet creation WebMap exercise
-Use the instructions and code above and in the resources zip file to help you [complete the tasks](#15).
+Use the instructions and code above and in the resources zip file to help you complete the tasks.
 
-While adding the JS tutorial code you **must** be aware of what you are doing and not just copying code.
+While adding following the tutorial you **must think about what you are doing and not just copy code**.
 ]
 
 ---
@@ -491,7 +525,7 @@ class: inverse, center, middle, activity
 
 .pl[
 ## Complete your QGIS WebMap
-Here's a [demonstration](https://youtu.be/mgQvlTIALvU)
+Here's a [demonstration](https://youtu.be/snp3lqpvstc)
 
 You should replicate the process for an airport of your choice **other than Luxembourg**.
 ]
@@ -508,6 +542,7 @@ Beyond just updating these two maps, you must update your main index.html file t
 ]
 
 .pr[
+![files tree structure](imgs/l2/website_tree.png)
 ]
 
 ---
@@ -515,27 +550,28 @@ Beyond just updating these two maps, you must update your main index.html file t
 
 .pl[
 ## Exercises
-- Finish all the exercises from today's lecture.
-  - Replicating the Leaflet London map
-  - Creating a flight paths map of any airport
+Finish the exercises from today's lecture:
+  1. Replicating the Leaflet London map
+  2. Creating a flight paths map of an airport (except Luxembourg)
 ]
 
 .pr[
 ## Replication
-- Create *another Leaflet* map showing points, markers, and/or popups for **points of interest in Luxembourg** (or another location of your choice that is not London).
-<br>**Please don't share any personal location data (e.g., house, work)**.
-- Create a WebMap using QGIS of any data/content of your choice.
+Create new WebMaps:
+1. *Using Leaflet*, showing points, markers, and/or popups for **points of interest in Luxembourg** (e.g. Good restaurants).
+  - .ts[**Please don't share any personal location data (e.g., house, work)**]
+2. *Using QGIS* of any theme of your choice.
 
 ]
 
 .tl[
 ## Your server space
-4. Upload the above four maps to your server space.
-5. All maps must be linked from your main index.html file.
+1. Upload the above **four maps** to your server space.
+2. All maps must be linked from your main index.html file.
 ]
 
 ---
-# Configuring a Ubuntu 20.04LTS Webserver
+# Configuring a Ubuntu 22.10 Server on Digital Ocean
 
 .pull-left[.ts[
 ### Install and configure Apache2
