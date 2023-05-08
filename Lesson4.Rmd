@@ -3,7 +3,7 @@ title: "Introduction to WebMaps"
 subtitle: "Lesson 4: Leaflet maps with R"
 author: "Dr. **Cyrille Médard de Chardon**"
 institute: "<br>University of Luxembourg &<br>Luxembourg Institute of Socio-Economic Research (LISER)"
-date: "<br>April 1, 2022"
+date: "<br>May 8, 2023"
 output:
   xaringan::moon_reader:
     css: [default, metropolis, metropolis-fonts, custom/custom.css] #xaringan-themer.css
@@ -51,7 +51,7 @@ xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css"))
 .pr[
 ## Homework reminder
 
-Class activities, homework, and assignments are due next week by the end of the day on May 19th (Thursday).
+Class activities, homework, and assignments are due next week by the end of the day.
 
 ]
 
@@ -59,13 +59,13 @@ Class activities, homework, and assignments are due next week by the end of the 
 # Create a Leaflet WebMap with R
 
 .pull-left[
-We will quickly demonstrate how you can create a WebMap with the R KnitR package.
+We will quickly demonstrate how you can create a WebMap in R using the KnitR package.
 
 Create a new Rstudio project and add the `RLeaflet.Rmd` document to it, then open it in RStudio.
 
-You will likely need to install the KnitR, and Rgdal packages - do so.
+You need to install the KnitR, and Rgdal packages.
 
-This file is a mark-down file (the same used to create this lesson content) that allows the easy styling of text into HTML. The `R` component allows the blending of R code with HTML (or PDF and other formats). This allows you to embed a narrative for your map very easily.
+This file is a **mark-down** file (the same used to create this lesson content) that allows the easy styling of text into HTML. The `R` component allows the blending of R code with HTML (or PDF and other formats). This allows you to embed a narrative for your map very easily.
 
 To test the code simply click the `Knit` button in the toolbar above your code.
 
@@ -75,7 +75,7 @@ This will create an HTML file in the same location as your Rmd file.
 .pr[
 You can see the full [documentation for making WebMaps with Leaflet in R](https://rstudio.github.io/leaflet/).
 
-The code is relatively simple and requires many of the same inputs as done using JS.
+The code is relatively simple and requires many of the **same inputs** as done using JS.
 
 .ts[
 ```{R, eval=FALSE}
@@ -128,7 +128,7 @@ We will not cover that here, but be aware of it.
 ]
 
 ---
-# Adding and styling multiple data sources
+# Multiple data sources and styling 
 
 .pull-left[
 
@@ -219,17 +219,10 @@ class: inverse, center, middle, activity
 ---
 # Final homework assignments WebMap
 
-Your **final homework assignment** is due by the **end of the day on May 19th/Thursday**.
 
 Like previous lessons your homework is to complete all activities but also reproduce what you have learned but using independent data and ideas.
 
 .pl[
-
-## R map
-You must create **another** Leaflet WebMap in R with data and theme of your choice.
-]
-
-.pull-right[
 ## Leaflet full feature map
 You will create a WebMap of a topic of your choice.
 You will create a Leaflet map that contains:
@@ -240,29 +233,35 @@ You will create a Leaflet map that contains:
 - This map is worth about a **quarter** of your WebMap course-section grade
 ]
 
+.pr[
+Your **final homework assignment** is due .... when?  
+Let's discuss.
+]
+
+
 ---
 
 # Homework
 
-Your **final homework assignment** is due by the **end of the day on May 19th/Thursday**.
-
 .pl[
 ## Exercises
 Finish the exercises from today's lecture.
-- Add to your **sync** map the:
-  - legend and
-  - info box
-- Create the leaflet map in R
-- Create the WebMap with a Mapbox base map and token 
+- Create the Lux Pop leaflet WebMap in R
+- Create the CFL WebMapx:
+  - Using a Mapbox base map and token 
+  - Add a legend (tunnel, rail, station?)
 ]
 
 .pull-right[
 ## Replication
-- Create an additional Leaflet WebMap using data and theme from outside this course in R
-- Final assignment map (previous slide)
+You must create **another** Leaflet WebMap in R with **data and theme** of your choice.
+  - use data/topic outside of that covered in this course.
+  
+## Final assignment
+- Se previous slide
 ]
 
-### **Like all previous lessons, only homework [on the server](http://167.99.221.7/) is evaluated.**
+**Like all previous lessons, only homework on the server is evaluated.**
 
 Make sure that your index page links to your individual WebMaps correctly so that they can be found.
 

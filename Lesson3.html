@@ -4,7 +4,7 @@
     <title>Introduction to WebMaps</title>
     <meta charset="utf-8" />
     <meta name="author" content="Dr. Cyrille Médard de Chardon" />
-    <meta name="date" content="2022-04-01" />
+    <meta name="date" content="2023-05-05" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
@@ -31,7 +31,7 @@ class: center, middle, inverse, title-slide
 ### <br>University of Luxembourg &amp;<br>Luxembourg Institute of Socio-Economic Research (LISER)
 ]
 .date[
-### <br>April 1, 2022
+### <br>May 5, 2023
 ]
 
 ---
@@ -158,8 +158,10 @@ Converting from shapefile to GeoJSON is only a matter of exporting it from your 
 
 As noted on the last slide converting from a GeoJSON file to a JS requires a **minor** intervention.
 
-.w100[![Simple representation of file type changes](imgs/l3/conversion.svg)]
+.w100[![Simple representation of file type changes](imgs/l3/conversion.svg)]]
+
 ---
+
 # Comparison of JS code &amp; GeoJSON data
 
 JS came first (1993) and provided a way to contain data in the code, but eventually people needed a format to store and transfer data with outside of JS code, so they created the JS Object Notation (JSON) (2001) and later (2008) a specific structure of JSON for geographic data named [GeoJSON](https://geojson.org/). Here's the same data contained in JS file and GeoJSON:
@@ -367,12 +369,15 @@ Just like with a GIS, we typically want to style features differently based on a
 **So**, it's possible to style all your features in the same manner:
 
 ```js
+// add this code to create a variable
+// containing a style object
 let styling = {
   "color": "blue", // of polygon fill
   "weight": 2, // of line thickness
   "opacity": 0.5 // of polygon fill
 };
  
+// modify the existing code
 // note the added 'styling' and brackets
 L.geoJSON(data, {
   style: styling
@@ -381,12 +386,15 @@ L.geoJSON(data, {
 
 
 &lt;script type="text/javascript"&gt;
+// add this code to create a variable
+// containing a style object
 let styling = {
   "color": "blue", // of polygon fill
   "weight": 2, // of line thickness
   "opacity": 0.5 // of polygon fill
 };
  
+// modify the existing code
 // note the added 'styling' and brackets
 L.geoJSON(data, {
   style: styling
@@ -400,7 +408,10 @@ L.geoJSON(data, {
 .ts[
 
 ```js
+// modify further the data loading code
 L.geoJSON(data, {
+  // if style contains function rather than style info
+  // then Leaflet sends individual features to function!
   style: function(feature) {
     // Note the N2013 - this is the attribute name!
     mapval = feature.properties.N2013;
@@ -421,7 +432,10 @@ L.geoJSON(data, {
 
 
 &lt;script type="text/javascript"&gt;
+// modify further the data loading code
 L.geoJSON(data, {
+  // if style contains function rather than style info
+  // then Leaflet sends individual features to function!
   style: function(feature) {
     // Note the N2013 - this is the attribute name!
     mapval = feature.properties.N2013;
@@ -468,7 +482,8 @@ class: inverse, center, middle, activity
 .pl[
 Create the WebMap above showing Luxembourg communes coloured differently based on their population (a choropleth map).
 
-This uses the same data as Activity 1. It's simpler for testing here to use your **synchronous** WebMap from the last activity.
+This uses the same data as Activity 1.  
+Use either the synchronous or asynchronous data loading.
 ]
 
 .pr[
