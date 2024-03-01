@@ -27,7 +27,7 @@ h1 {
   display: inline-block;
 }
 
-.w100 img { width: 100%; }
+.w100 img, .w90 img, .w80 img, .w75 img, .w66 img, .w50 img, .w40 img, .w33 img { width: 100%; }
 .w100 { width: 100%; }
 .w90 { width: 90%; }
 .w80 { width: 80%; }

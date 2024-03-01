@@ -11,6 +11,7 @@
     <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
     <script src="libs/tile-view/tile-view.js"></script>
     <link href="libs/animate.css/animate.xaringan.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="favicon.ico"/>
     <link rel="stylesheet" href="custom/custom.css" type="text/css" />
   </head>
   <body>
@@ -103,14 +104,19 @@ We will start next week with actually making WebMaps.
 
 .pl[
 Each week you will be given tasks.
-- They are due before the start of the next lesson.
+- **They are due before the start of the next lesson.**
 - Depending on our schedule this may mean you have more than one week to complete the activities.
+- Each assignment will have points.
+- Points are summed across all four lessons.
+- Your WebGIS grade contributes to a **part** of your overall course grade.
 ]
 
 .pr[
-- Each assignment will have points.
-- Points are summed across all four lessons.
-- Your total percentage contributes to **part** of your overall grade for this course.
+
+![Painting of a student finishing their webmap while friends party in the background](imgs/l1/Jan_Matejko,_Stańczyk.jpg)
+
+.source[[Stańczyk](https://en.wikipedia.org/wiki/Sta%C5%84czyk_%28painting%29), by [Jan Matejko](https://en.wikipedia.org/wiki/Jan_Matejko).]
+  
 ]
 
 ---
@@ -199,12 +205,12 @@ Within a &lt;b&gt;&lt;span style="color:red"&gt;s&lt;/span&gt;&lt;span style="co
 
 .pr[
 WebMaps typically provide the following functionalities:
-- interactive,
-- allow scaling,
+- interaction,
+- scaling,
 - panning,
-- accessible through a browser or app,
-- inclusion of base maps, and sometimes
-- querying of features.
+- browser or app access,
+- display of data and/or base maps,
+- and sometimes, querying of features.
 ]
 
 ???
@@ -214,10 +220,8 @@ While we've called this course WebGIS we'll really be learning how to create Web
 ---
 class: inverse, middle, activity
 
-# Let's explore
-
-## Go to [this map](https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?request=getmap&amp;service=wms&amp;BBOX=45,-3,55,10&amp;crs=EPSG:4326&amp;format=image/jpeg&amp;layers=gebco_latest&amp;width=1600&amp;height=900&amp;version=1.3.0)
-## Is this an image or a WebMap?
+# Let's explore this [resource](https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?request=getmap&amp;service=wms&amp;BBOX=45,-3,55,10&amp;crs=EPSG:4326&amp;format=image/jpeg&amp;layers=gebco_latest&amp;width=1600&amp;height=900&amp;version=1.3.0)
+## What type of resource is it?
 ### Discuss with your neighbour
 
 ---
@@ -240,7 +244,7 @@ Try making changes to the:
 ]
 
 .pull-right[
-.w75[![A WebMap?](imgs/l1/mapserv.jpeg)]
+.w100[![A WebMap?](imgs/l1/mapserv.jpeg)]
 - Interaction is difficult and requires expert knowledge (e.g., lat/lng, image w/h distortion). Nothing happens in the browser besides displaying the map.
 - While this interface is clunky, there’s still a lot going on in the background on the server.
 - We will call what happens on the server the **back-end stack**.
@@ -250,15 +254,12 @@ Try making changes to the:
 ]
 
 ---
-class: inverse, center, middle, activity
 
-# 10-minute Break
-
----
 # How WebMaps function
 
 .pl[
-We've already seen in the earlier exercise how a server has generated an image based on a set of parameters (i.e., bbox, width, height). Let's observe some particularities about the loading of WebMaps to further see how some of them they operate.
+We've seen how a server can generate an image based on a set of parameters (i.e., bbox, width, height).
+Let's observe some particularities about the loading of WebMaps to further see how some of them they operate.
 
 **We will explore a couple maps and try to perceive and reveal some of this underlying functionality.**
 ]
@@ -267,35 +268,37 @@ We've already seen in the earlier exercise how a server has generated an image b
 **Complete the following in pairs/groups.**
 
 [Map/activity 1](http://openwhatevermap.xyz/#3/66.93/14.33) - Three minutes
-- What are your conclusions regarding how data is structured?
+- What is going on here?
+- This is created for fun - but what does it reveal about how this webmap 'functions'?
 
-For the next exercise watch the map as it loads.
+For the next exercise **watch the map carefully** as it loads.
+Repeat if necessary.
 
 [Map/activity 2](http://www.arcgis.com/apps/View/index.html?appid=6f53ca5e2b8c480888e96e5f71929c08) - Three minutes
-- What components (layers?) does it load?
+- What components or layers do you see?
 - What data does the map contain/present?
-- What data types? (do remember data types from GIS?)
+- What data types? (do you remember data types from GIS?)
 ]
 
 ---
 # Types of Map Services
 
 .pl[
-WMS&lt;br&gt;
+Web Mapping Service (WMS)  
 ![WMS](imgs/l1/mapserv.jpeg)
 
-WFS&lt;br&gt;
+Web Feature Service (WFS)  
 ![WFS](imgs/l1/wfs.png)
 
 .source[https://www.gebco.net/, OSM Contributors, http://www.deegree.org/]
 ]
 
 .pr[
-WMTS/TMS/XYZ (similar)&lt;br&gt;
+WMTS/TMS/XYZ  
 .w90[![WMTS](imgs/l1/wmts.png)]
 
-Tiled WFS&lt;br&gt;
-![TWFS](imgs/l1/wfs_tiled.png)
+Tiled WFS - WFTS  
+.w90[![TWFS](imgs/l1/wfs_tiled.png)]
 
 ]
 
@@ -303,17 +306,23 @@ Tiled WFS&lt;br&gt;
 ???
 
 - WMS (Web Mapping Service): This is similar to what a desktop GIS does, it generates an image of defined bounds and features and displays it to your screen, only this is sent over the internet each time you change scale or pan. This **was** the most commonly used form of WebMaps early on (e.g., the map we saw earlier). Its rare now as it takes processing power and time, making it only worthwhile if there are few requests.
-- WFS (Web Feature Service): Provide the vector features to the browser, encoded, to display. This has the added potential of allowing the selective display and styling of client side information (e.g., Google Maps advertising).
 - Tiled image maps (WMTS/TMS/XYZ): This was the first big improvement in WMS, allowing much more responsive change in scale and panning. This however is constrained by not containing WFS abilities. There are many standards.
+- WFS (Web Feature Service): Provide the vector features to the browser, encoded, to display. This has the added potential of allowing the selective display and styling of client side information (e.g., Google Maps advertising).
 - Vector tiles: It combines the benefits of tiled maps and WFS.
-
-- Note that tile generation can either be done ahead of time or on the fly but that storage becomes and issue as you must save each tile for each resolution.
+- Note that server tile generation can either be done ahead of time or on the fly but that storage becomes and issue as you must save each tile for each resolution.
 
 - The internet has changed, asynchronous vs synchronous (web2.0 in the 2000s)
 - Asynchronism requires a **web server** that processes HTTP(S) requests.
 
-**No one service is not best for all situations**. Some data is better served in raster format, using tiled images, while others can increase speed and reduce bandwidth with vector formats.
+**No service is best for all situations**.
+Some data is better served in raster format, using tiled images, while others can increase speed and reduce bandwidth with vector formats.
 WebMaps can contain combinations of mapping services.
+
+---
+class: inverse, center, middle, activity
+
+# Activity
+**Illustrate the path of the data from a server to the user**
 
 ---
 # The stack and its components
@@ -440,6 +449,10 @@ We will now cover the basics of:
 - CSS
 - JavaScript
 - Data formats
+
+We won't cover:
+- Databases
+- SQL (interface between DB server-side code)
 ]
 
 .pr[
@@ -451,7 +464,6 @@ A few resources and good practices will be a huge help:
 - Your IDE (Notepad++ or Visual Studio Code)
 - **Keep everything very organized!**
 - The browser Web Developer Tools (F12)
-- [Google](https://google.com) is your friend.
 ]
 
 ---
@@ -502,83 +514,10 @@ Given the file structure shown **to the right**, if I 'point' to the following r
 
 .pr[
 
-![File tree](imgs/l1/filetree.png)
-
-## Question
-How are your course files organized?
+.w100[![File tree](imgs/l1/filetree.png)]
+### Q:  How are your files organized?
 ]
 
----
-# Developer Tools
-
-.pull-left[
-Most browsers have developer tools. These can be enabled in a variety of ways depending on your computer and browser. Try the following:
-
-- PC/Linux - `Ctrl+Shift+I`
-- Mac - `Alt+Command+I`
-- F12
-- Tools -&gt; Web Developer Tools* 
-
-![Developer tools](imgs/l1/devtools.png)
-Firefox developer tools.
-]
-
-.pull-right[
-The are four tabs that are of importance for us:
-
-- The **Pick** tab/button allows you to focus in individual elements.
-- The **Inspector/Elements** tab allow you to browse the HTML source code and understand how elements are constructed.
-- The **Console** tab is where JavaScript information is provided, such as errors, warnings, or just text to help the developer debug/check their code.
-- The **Network** tab shows us what/who the browser is communicating with and what it is sending and receiving (or failed receiving).
-
-![Developer tools](imgs/l1/devtoolschrome.png)
-Chrome developer tools.
-]
-
-???
-
-* Or some similar combination of menus.
-
-
----
-class: inverse, center, middle, activity
-
-# Activity
-
-Working with a partner:
-
-[Download](https://github.com/serialc/webmaps_introduction/blob/main/rsrcs/l1/filepaths/ex1.zip?raw=true) this file.
-
-**Extract/unzip it!**
-
-Repair the paths/folders so the Leaflet example from before functions.
-
-*Follow the bread crumbs starting from the **index.html** file*
-
----
-class: inverse, center, middle, activity
-
-# Answers
-
-.pull-left[
-Note that debugging a website on a proper server (http://localhost/~cyrille/exercise1/) is much easier than an html file on your local machine (file:///home/cyrille/Downloads/ex1/exercise1/index.html).
-
-Developer console when opening index.html on a server from a browser:
-
-![Debug console](imgs/l1/devcon_debug.png)
-]
-
-.pull-right[
-Regardless, looking through the index file it should be clear there's a mismatch between the actual files provided and the used **relative** paths in index.html.
-
-There are a few things to fix.
-- The path to leaflet.js is wrong
-- The path to leaflet.css is wrong
-
-![Debug console](imgs/l1/devcon_debug2.png)
-- More complex is the missing marker on the map that requires fixing the path within the **leaflet.css** to **marker-icon.png**.
-- CSS paths are relative to the CSS file.
-]
 
 ---
 # The HTML, CSS, JS Trinity
@@ -808,7 +747,7 @@ let tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}
 ```
 
 
-&lt;script type="text/javascript"&gt;
+&lt;script&gt;
 let map = L.map('map').setView([51.505, -0.09], 13);
 
 let options = {
@@ -830,7 +769,9 @@ let tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}
 
 JavaScript is quite readable, try and figure out what people are doing, copy and change as needed. JavaScript does have it’s problems though - there are good and bad parts. 
 
+
 ---
+
 # Data formats
 
 .pl[
@@ -842,7 +783,7 @@ We will only work with JSON, GeoJSON, and structure data files (e.g., CSV).
 .pull-right[
 ## JSON
 
-JSON is a very human and machine readable way of storing many data types that can used directly from JavaScript code.
+JSON is both human and machine readable data storage. It can be natively used or read by JS. Other languages can read and write to JSON.
 
 
 ```js
@@ -860,7 +801,7 @@ JSON is a very human and machine readable way of storing many data types that ca
 ```
 
 
-&lt;script type="text/javascript"&gt;
+&lt;script&gt;
 {
   "squadName": "Super hero squad",
   "homeTown": "Metro City",
@@ -876,9 +817,9 @@ JSON is a very human and machine readable way of storing many data types that ca
 
 .source[[Mozilla](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON)]
 ]
-
 ---
 # A deeper understanding
+
 .pull-left[
 Don’t be too worried about memorizing all this now. Focus on being able to understand it. You can always replicate by copying and modifying.
 
@@ -893,8 +834,40 @@ You will encounter problems. Without these (debugging) tools it is difficult to 
 
 .pr[
 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/F7IZZXQ89Oc?rel=0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
 .source[Spinal Tap]
 ]
+
+---
+# Developer Tools
+
+.pull-left[
+Most browsers have developer tools. These can be enabled in a variety of ways depending on your computer and browser. Try the following:
+
+- PC/Linux - `Ctrl+Shift+I`
+- Mac - `Alt+Command+I`
+- F12
+- Tools -&gt; Web Developer Tools* 
+
+![Developer tools](imgs/l1/devtools.png)
+Firefox developer tools.
+]
+
+.pull-right[
+The are four tabs that are of importance for us:
+
+- The **Pick** tab/button allows you to focus in individual elements.
+- The **Inspector/Elements** tab allow you to browse the HTML source code and understand how elements are constructed.
+- The **Console** tab is where JavaScript information is provided, such as errors, warnings, or just text to help the developer debug/check their code.
+- The **Network** tab shows us what/who the browser is communicating with and what it is sending and receiving (or failed receiving).
+
+![Developer tools](imgs/l1/devtoolschrome.png)
+Chrome developer tools.
+]
+
+???
+
+* Or some similar combination of menus.
 
 ---
 # Revisited
@@ -921,6 +894,47 @@ Let’s revisit the [airports and flight paths map](https://www.arcgis.com/apps/
 - By hovering over the file name in the main network tab you can preview the file. Go through a few/many, you should see there are multiple types. How many types of tiles do you see? What strategy is the map using to display content?
 - Using the element selector/pointer, the left-most tab, try to select some of the map features. What can you deduce from this? How are the circle/paths features different?
 ]
+
+---
+class: inverse, center, middle, activity
+
+# Activity - fixing a broken site
+
+Working with a partner:
+
+[Download](https://github.com/serialc/webmaps_introduction/blob/main/rsrcs/l1/filepaths/ex1.zip?raw=true) this file.
+
+**Extract/unzip it!**
+
+Try to repair the paths/folders so the Leaflet example from before functions.
+
+*Follow the bread crumbs starting from the **index.html** file*
+
+---
+class: inverse, center, middle, activity
+
+# Answers
+
+.pull-left[
+Note that debugging a website on a proper server (http://localhost/~cyrille/exercise1/) is much easier than an html file on your local machine (file:///home/cyrille/Downloads/ex1/exercise1/index.html).
+
+Developer console when opening index.html on a server from a browser:
+
+![Debug console](imgs/l1/devcon_debug.png)
+]
+
+.pull-right[
+Regardless, looking through the index file it should be clear there's a mismatch between the actual files provided and the used **relative** paths in index.html.
+
+There are a few things to fix.
+- The path to leaflet.js is wrong
+- The path to leaflet.css is wrong
+
+![Debug console](imgs/l1/devcon_debug2.png)
+- More complex is the missing marker on the map that requires fixing the path within the **leaflet.css** to **marker-icon.png**.
+- CSS paths are relative to the CSS file.
+]
+
 
 ---
 class: inverse, center, middle, activity
@@ -955,6 +969,7 @@ Some WebMaps can contain the totality of the content, mostly in a map. These are
 # Limitations of WebMaps
 
 .pull-left[
+## Decay
 A drawback of WebMaps is that they can depend on a variety of software and data frameworks which change - unlike a static map. While I have created many WebMaps, I stop maintaining them when no longer relevant. As a result they eventually no longer function perfectly or at all.
 
 - [Bike-share rebalancing](https://bikeshare-research.org/rebalancing/webmap/) - Broken base map.
@@ -965,6 +980,7 @@ We will learn more about these components, but keep in mind that as browsers (pa
 
 .pull-right[
 
+## Trade-offs
 When choosing components for your professional projects in the future this may be very important. Selecting the right combination depends on:
 
 - acceptable cost, 
@@ -998,25 +1014,33 @@ Feel free to use either or both as you wish, however I believe only **Notepad++*
 ---
 # Homework for next week
 
-.tl[
-1. [Computer Science Basics with Minecraft](https://studio.code.org/s/mc/lessons/1/levels/1) - Provide a screenshot showing you have completed levels 1-13 (green dots at the top of the screen).
+.pull-left[
+1 - [Computer Science Basics with Minecraft](https://studio.code.org/s/mc/lessons/1/levels/1)
+  - Provide a screenshot showing you have completed levels 1-13 (green dots at the top of the screen).
 
-2. [JavaScript basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics) - Follow the instructions.
+2 - [JavaScript basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics)
+- Follow the instructions.
 
-3. Browse the other sections of the [MDN site](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web), perhaps related to HTML and CSS.
+3 - View the source code of the [Leaflet example](https://leafletjs.com/examples/quick-start/example.html).
+  - Identify which portions of the code are HTML/JS/CSS
+  - Identify CSS connections to HTML
+  - Identify JS connections to HTML
+  - Explain the JS code
+]
 
-4. Using what you've learned and the code examples given in [this presentation](#29) , create a very simple website, it doesn't need to be pretty, provide some superficial information about yourself and, if you wish, include a small picture/caricature of yourself, pet, or something else. Zip up your site files. Don't share any personal information.
+.pull-right[
+4 - Using what you've learned and the code examples given in [this presentation](#29) , create a very simple website, it doesn't need to be pretty, provide some superficial information about yourself and, if you wish, include a small picture/caricature of yourself, pet, or something else. Zip up your site files. Don't share any personal information.
 
-5. Email the results of steps 1 &amp; 4 above to me **before** next week's lesson.
+5 - Email me the results of steps 1 &amp; 4 above **before** next week's lesson.
 ]
 
 ---
 
 # Questions?
 
-## [Contact me](mailto:cyrille.medarddechardon@uni.lu) if you have any questions.
+## [Contact me](mailto:cyrille.medarddechardon@liser.lu) if you have any questions.
 
-cyrille.medarddechardon@uni.lu
+cyrille.medarddechardon@liser.lu
 
 ## These slides are online
 https://serialc.github.io/webmaps_introduction/
