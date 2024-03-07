@@ -410,12 +410,10 @@ In the `<head>`:
 
 In the `<body>`:
 - a `<div id="something"></div>` that will contain your WebMap.
-- below the above
-  - Link to **your** JS
+- below the above `id`:
+  - Link to, or provide, **your** JS
   
-**Just like we linked HTML to CSS and JS files, we inside them link back to elements in the HTML, using CSS and JS to refer to elements.
-
-In this exercise the  ```{html}<div id="map"></div>```.
+Just like we linked HTML to CSS and JS **files**, we can now link to HTML **elements**, using CSS and JS.
 ]
 
 .pull-right[
@@ -426,11 +424,11 @@ You will follow the [directions](https://leafletjs.com/SlavaUkraini/examples/qui
 - [Working with popups](https://leafletjs.com/SlavaUkraini/examples/quick-start/#working-with-popups)
 - Do not do the last section on Dealing with events
 
-### Result
+### Results?
 
-After all that work...  
+If after all that work...  
 .w50[![Grey WebMap](imgs/l2/grey_webmap.png)]  
-*What's the problem?*
+*What's the problem? Use F12 - the developer console!*
 ]
 
 ???
