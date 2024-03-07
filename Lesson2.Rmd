@@ -113,7 +113,9 @@ class: inverse, center, middle, activity
 
 ## Two HTML files
 .pl[
-A folder, named `test` has two html files in:
+I will create a folder on my website named `test`.
+
+It has two html files inside, named:
 - index.html
 - info.html
 
@@ -172,7 +174,7 @@ class: inverse, center, middle, activity
 
 .pl[
 
-**[Our server for this course: http://167.71.41.80](http://http://167.71.41.80/)**
+**[Our server for this course: http://164.92.179.32](http://http://164.92.179.32/)**
 
 I will individually give you your passwords now
 ]
@@ -217,7 +219,7 @@ We saw last week how paths and relative paths 'match'.
 
 While this relationship is maintained once you put data on the server, where your 'root' webpath and URL meet can be arbitrary.
 
-However, this is typically standardized. If want an html file to appear at your URL: `http://167.71.41.80/~cyrille` then you must place your `index.html` file at the location `/home/cyrille/public_html/index.html`.
+However, this is typically standardized. If want an html file to appear at your URL: `http://164.92.179.32/~cyrille` then you must place your `index.html` file at the location `/home/cyrille/public_html/index.html`.
 
 You may have to create the `public_html` directory and set permissions to `755`.
 ]
@@ -287,7 +289,7 @@ To connect to the server, configure FileZilla by opening the Site Manager:
 - On the bottom left click **New site** button and give it a name (e.g., WebMaps course)
 - On the right specify the:
   - Protocol: SFTP
-  - Host: 167.71.41.80
+  - Host: 164.92.179.32
   - User: [your username]
   - Password: [your password]
 - Click **Connect**
@@ -311,12 +313,13 @@ an **aboutme.html** page.
 # Creating our first WebMap
 
 .pl[
-We will now create our first WebMap using the [Leaflet library](https://leafletjs.com/).
+We will create our first WebMap using the [Leaflet library](https://leafletjs.com/).
 
 The [Quick Start Guide](https://leafletjs.com/examples/quick-start/) assumes we have some knowledge of HTML.
 - Look in the [zip resources](rsrcs/l2/lesson2.zip) provided for today.
-- Duplicate the `resources_wk2/website/ pages/template.html` page and rename it `leaflet_example.html` (or something clear) in the same folder.
-- Open `leaflet_example.html` in your code editor of choice (e.g., notepad)
+- **Duplicate** the file named  `template.html` in `resources_wk2/website/pages/`
+- Rename it `leaflet_example.html` (or something clear) in the same folder.
+- Open `leaflet_example.html` in your code editor of choice (e.g., Notepad++)
 ]
 
 .pr[
@@ -489,7 +492,7 @@ While adding following the tutorial you **must think about what you are doing an
 ]
 
 ---
-# An alternative WebMaps method using QGIS
+# An alternative WebMap creation method using QGIS
 
 .pl[
 We will dive straight into another activity. Making a WebMap of certain flight paths of your choice.
@@ -549,7 +552,7 @@ Beyond just updating these two maps, you must update your main index.html file t
 # Homework
 
 .pl[
-## Exercises
+## Today's exercises
 Finish the exercises from today's lecture:
   1. Replicating the Leaflet London map
   2. Creating a flight paths map of an airport (except Luxembourg)
@@ -558,15 +561,15 @@ Finish the exercises from today's lecture:
 .pr[
 ## Replication
 Create new WebMaps:
-1. *Using Leaflet*, showing points, markers, and/or popups for **points of interest in Luxembourg** (e.g. Good restaurants).
-  - .ts[**Please don't share any personal location data (e.g., house, work)**]
-2. *Using QGIS* of any theme of your choice.
+1. *Using Leaflet* manually create points of interest in Luxembourg
+  - .ts[**Don't share any personal information**]
+2. *Using the QGIS plugin* create a WebMap of any theme of your choice.
 
 ]
 
 .tl[
-## Your server space
-1. Upload the above **four maps** to your server space.
+## Upload to your server space
+1. Upload the **four WebMaps** above to your server space.
 2. All maps must be linked from your main index.html file.
 ]
 
@@ -575,7 +578,7 @@ Create new WebMaps:
 
 .pull-left[.ts[
 ### Install and configure Apache2
-Log-in as root:
+SSH in as **root**:
 
 ```{bash, eval=FALSE}
 apt install apache2
@@ -587,7 +590,8 @@ ufw allow 'OpenSSH'
 ufw status
 # activate firewall
 ufw enable
-ufw status # it show have Apache and OpenSSH enabled
+ufw status
+# it should show Apache and OpenSSH enabled
 
 # check website in browser
 # Note we are using http and not https
@@ -595,8 +599,9 @@ ufw status # it show have Apache and OpenSSH enabled
 # update the main landing page
 vim /var/www/html/index.html
 
-# use newusers (for usage see: man newusers) to create users from file with following format:
-# pw_name:pw_passwd:pw_uid:pw_gid:pw_gecos:pw_dir:pw_shell
+# use newusers (for usage see: man newusers) to create users from file
+# use the following format (we leave a few blank):
+# name:passwd:uid:group:gecos:dir:shell
 # cyrille:8t3n997zqb::student::/home/cyrille:
 ```
 ]]
